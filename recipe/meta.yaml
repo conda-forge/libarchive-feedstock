@@ -10,7 +10,7 @@ source:
   sha256: bcefe75f3f1527656c82e42e7adf1614ae274d005b2583d0ae15f857bfb1ed28
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
 
 requirements:
@@ -24,7 +24,7 @@ requirements:
     - expat
     - libiconv
     - openssl 1.0.*
-    - xz 5.0.*
+    - xz 5.2.*
     - zlib 1.2.*
 
   run:
@@ -32,7 +32,7 @@ requirements:
     - expat
     - libiconv
     - openssl 1.0.*
-    - xz 5.0.*
+    - xz 5.2.*
     - zlib 1.2.*
 
 test:
