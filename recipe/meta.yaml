@@ -10,7 +10,7 @@ source:
   sha256: bcefe75f3f1527656c82e42e7adf1614ae274d005b2583d0ae15f857bfb1ed28
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win]
 
 requirements:
@@ -53,6 +53,9 @@ test:
     - bsdcat --version
     - bsdcpio --version
     - bsdtar --version
+
+    # Verify exported environment variable.
+    - if [[ -z "${LIBARCHIVE}" ]]; then exit 1; fi
 
 about:
   home: http://www.libarchive.org/

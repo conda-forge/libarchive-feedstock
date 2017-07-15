@@ -28,6 +28,14 @@ autoreconf -ivf
             --without-lz4 \
             --without-lzmadec \
             --without-xml2
-make
+make -j${NUM_CPUS}
 #eval ${LIBRARY_SEARCH_VAR}="${PREFIX}/lib" make check
 make install
+
+# Copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.
+# This will allow them to be run on environment activation.
+for CHANGE in "activate" "deactivate"
+do
+    mkdir -p "${PREFIX}/etc/conda/${CHANGE}.d"
+    cp "${RECIPE_DIR}/${CHANGE}.sh" "${PREFIX}/etc/conda/${CHANGE}.d/libarchive_${CHANGE}.sh"
+done
