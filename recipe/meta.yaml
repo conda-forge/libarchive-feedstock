@@ -10,7 +10,7 @@ source:
   sha256: 22560b89d420b11a4a724877bc6672b7d7c0f239e77d42a39dcc5a9c3b28db82
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win]
 
 requirements:
@@ -22,6 +22,8 @@ requirements:
     - pkg-config
     - bzip2
     - expat
+    - xz
+    - zlib
     - libiconv       # [osx]
     - openssl
 
