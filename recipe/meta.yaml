@@ -11,15 +11,16 @@ source:
 
 build:
   number: 1
-  skip: True  # [win]
+  skip: True  # [win and py2k]
 
 requirements:
   build:
     - {{ compiler('c') }}
-    - autoconf
-    - automake
-    - libtool
-    - pkg-config
+    - autoconf  # [unix]
+    - automake  # [unix]
+    - libtool  # [unix]
+    - pkg-config  # [unix]
+    - cmake  # [win]
   host:
     - bzip2
     - libiconv  # [osx]
