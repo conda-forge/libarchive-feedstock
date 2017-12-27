@@ -12,7 +12,7 @@ source:
     - 0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
 
 build:
-  number: 2
+  number: 3
   skip: True  # [win and py2k]
 
 requirements:
@@ -34,6 +34,8 @@ requirements:
     - zlib
 
 test:
+  files:
+    - test/hello_world.xar  # [osx]
   commands:
     # Verify pkg-config file is in place.
     - test -f "${PREFIX}/lib/pkgconfig/libarchive.pc"  # [unix]
@@ -51,6 +53,7 @@ test:
     - bsdcat --version
     - bsdcpio --version
     - bsdtar --version
+    - bsdtar -tf test/hello_world.xar  # [osx]
 
 about:
   home: http://www.libarchive.org/
