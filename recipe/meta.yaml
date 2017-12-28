@@ -35,7 +35,7 @@ requirements:
 
 test:
   files:
-    - test/hello_world.xar  # [osx]
+    - test/hello_world.xar
   commands:
     # Verify pkg-config file is in place.
     - test -f "${PREFIX}/lib/pkgconfig/libarchive.pc"  # [unix]
@@ -53,7 +53,7 @@ test:
     - bsdcat --version
     - bsdcpio --version
     - bsdtar --version
-    - bsdtar -tf test/hello_world.xar  # [osx]
+    - bsdtar -tf test/hello_world.xar
 
 about:
   home: http://www.libarchive.org/
