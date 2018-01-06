@@ -11,15 +11,18 @@ source:
 
 build:
   number: 2
-  skip: true  # [win]
+  skip: true  # [win and py36]
+  features:
+    - vc9  # [win and py27]
+    - vc14  # [win and py>=35]
 
 requirements:
   build:
     - toolchain
-    - autoconf
-    - automake
-    - libtool
-    - pkg-config
+    - autoconf  # [unix]
+    - automake  # [unix]
+    - libtool  # [unix]
+    - pkg-config  # [unix]
     - bzip2 1.0.*
     - expat
     - libiconv
@@ -43,11 +46,12 @@ test:
     # Verify headers are in place.
     - test -f "${PREFIX}/include/archive.h"            # [unix]
     - test -f "${PREFIX}/include/archive_entry.h"      # [unix]
+    - if not exist %LIBRARY_PREFIX%\\include\\archive.h exit 1  # [win]
 
     # Verify libraries are in place.
     - test -f "${PREFIX}/lib/libarchive.a"             # [unix]
-    - test -f "${PREFIX}/lib/libarchive.so"            # [linux]
-    - test -f "${PREFIX}/lib/libarchive.dylib"         # [osx]
+    - test -f "${PREFIX}/lib/libarchive${SHLIB_EXT}"   # [unix]
+    - if not exist %LIBRARY_PREFIX%\\lib\\libarchive.lib exit 1  # [win]
 
     # Check for commands
     - bsdcat --version
@@ -58,6 +62,7 @@ about:
   home: http://www.libarchive.org/
   summary: Multi-format archive and compression library
   license: BSD 2-Clause
+  license_family: BSD
 
 extra:
   recipe-maintainers:
