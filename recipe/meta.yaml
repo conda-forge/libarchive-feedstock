@@ -1,4 +1,4 @@
-{% set version = "3.2.1" %}
+{% set version = "3.3.2" %}
 
 package:
   name: libarchive
@@ -7,19 +7,19 @@ package:
 source:
   fn: libarchive-{{ version }}.tar.gz
   url: https://github.com/libarchive/libarchive/archive/v{{ version }}.tar.gz
-  sha256: bcefe75f3f1527656c82e42e7adf1614ae274d005b2583d0ae15f857bfb1ed28
+  sha256: 22560b89d420b11a4a724877bc6672b7d7c0f239e77d42a39dcc5a9c3b28db82
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win]
 
 requirements:
   build:
     - toolchain
-    - autoconf
-    - automake
-    - libtool
-    - pkg-config
+    - autoconf  # [unix]
+    - automake  # [unix]
+    - libtool  # [unix]
+    - pkg-config  # [unix]
     - bzip2 1.0.*
     - expat
     - libiconv
@@ -46,8 +46,7 @@ test:
 
     # Verify libraries are in place.
     - test -f "${PREFIX}/lib/libarchive.a"             # [unix]
-    - test -f "${PREFIX}/lib/libarchive.so"            # [linux]
-    - test -f "${PREFIX}/lib/libarchive.dylib"         # [osx]
+    - test -f "${PREFIX}/lib/libarchive${SHLIB_EXT}"   # [unix]
 
     # Check for commands
     - bsdcat --version
@@ -58,6 +57,7 @@ about:
   home: http://www.libarchive.org/
   summary: Multi-format archive and compression library
   license: BSD 2-Clause
+  license_family: BSD
 
 extra:
   recipe-maintainers:
