@@ -10,9 +10,10 @@ source:
   sha256: 22560b89d420b11a4a724877bc6672b7d7c0f239e77d42a39dcc5a9c3b28db82
   patches:
     - 0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
+    - 0002-xar-fix-bad-seek-in-move_reading_point.patch
 
 build:
-  number: 3
+  number: 4
   skip: True  # [win and py2k]
 
 requirements:
