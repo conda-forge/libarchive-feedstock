@@ -11,10 +11,16 @@ source:
   patches:
     - 0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
     - 0002-xar-fix-bad-seek-in-move_reading_point.patch
+    - 0003-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
+    - 0004-VC9-compatibility-define-BCRYPT_SUCCESS.patch
+    # This should not be applied in general. It exists so I can build it for
+    # debugging Visual Studio where warnings are errors for some reason.
+    # Hiding warnings is poor practice.
+    # - 0005-VC9-compatibility-ignore-some-warnings.patch
+    - 0006-VC-openssl-define-inline-as-__inline.patch
 
 build:
-  number: 4
-  skip: True  # [win and py2k]
+  number: 5
 
 requirements:
   build:
@@ -27,7 +33,7 @@ requirements:
   host:
     - bzip2
     - libiconv  # [osx]
-    - lz4-c
+    - lz4-c  # [win and vc>=14]
     - xz
     - lzo
     - openssl

@@ -6,22 +6,32 @@ set INCLUDE=%LIBRARY_INC%;%INCLUDE%
 :: VS2008 doesn't have stdbool.h so copy in our own
 :: to 'lib' where the other headers are so it gets picked up.
 if "%VS_MAJOR%" == "9" (
-    copy %RECIPE_DIR%\stdbool.h lib\
-    copy %LIBRARY_INC%\stdint.h lib\
+  copy %RECIPE_DIR%\stdbool.h lib\
+  copy %LIBRARY_INC%\stdint.h lib\
+  if "%ARCH%" == "64" (
+    # The Windows 6.0A SDK does not provide the bcrypt.lib for 64-bit:
+    # C:\Program Files\Microsoft SDKs\Windows\v6.0A\Lib\x64
+    # .. yet does for 32-bit, oh well, this may disable password protected zip support.
+    # https://social.msdn.microsoft.com/Forums/windowsdesktop/en-US/673cc344-430c-4510-96e8-80b0bb42ae11/can-not-link-bcryptlib-to-an-64bit-build?forum=windowssdk
+    set ENABLE_CNG=NO
+  ) else (
+    set ENABLE_CNG=YES
+  )
 )
 
 :: set cflags because NDEBUG is set in Release configuration, which errors out in test suite due to no assert
 cmake -G"%CMAKE_GENERATOR%" ^
       -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -DCMAKE_C_FLAGS_RELEASE="%CFLAGS%" ^
+      -DENABLE_CNG=%ENABLE_CNG% ^
       .
 
 :: Build.
-cmake --build . --config Release -- -v:d
+cmake --build . --config Release
 if errorlevel 1 exit 1
 
 :: Install.
-cmake --build . --config Release --target install -- -v:d
+cmake --build . --config Release --target install
 if errorlevel 1 exit 1
 
 :: Test.
