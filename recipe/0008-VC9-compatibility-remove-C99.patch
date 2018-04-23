@@ -1,35 +1,35 @@
---- work/libarchive/archive_read_support_filter_lz4.c.orig	2018-04-23 10:43:24.939555700 -0500
-+++ work/libarchive/archive_read_support_filter_lz4.c	2018-04-23 10:43:24.955143300 -0500
-@@ -336,7 +336,6 @@
+--- libarchive-3.3.2/libarchive/archive_read_support_filter_lz4.c.orig	2018-04-23 16:51:54.000000000 +0100
++++ libarchive-3.3.2/libarchive/archive_read_support_filter_lz4.c	2018-04-23 16:52:00.000000000 +0100
+@@ -336,6 +336,7 @@
  
  	while (state->stage == SELECT_STREAM) {
  		const char *read_buf;
--		uint32_t number;
++		uint32_t number;
  
  		/* Read a magic number. */
  		read_buf = __archive_read_filter_ahead(self->upstream, 4,
-@@ -346,14 +345,13 @@
+@@ -345,13 +346,14 @@
  			*p = NULL;
  			return (0);
  		}
--		number = archive_le32dec(read_buf);
-+		uint32_t number = archive_le32dec(read_buf);
+-		uint32_t number = archive_le32dec(read_buf);
++		number = archive_le32dec(read_buf);
  		__archive_read_filter_consume(self->upstream, 4);
  		if (number == LZ4_MAGICNUMBER)
  			return lz4_filter_read_default_stream(self, p);
  		else if (number == LZ4_LEGACY)
  			return lz4_filter_read_legacy_stream(self, p);
  		else if ((number & ~0xF) == LZ4_SKIPPABLED) {
--			uint32_t skip_bytes;
++			uint32_t skip_bytes;
  			read_buf = __archive_read_filter_ahead(
  				self->upstream, 4, NULL);
  			if (read_buf == NULL) {
-@@ -363,7 +361,7 @@
+@@ -361,7 +363,7 @@
  				    "Malformed lz4 data");
  				return (ARCHIVE_FATAL);
  			}
--			skip_bytes = archive_le32dec(read_buf);
-+			uint32_t skip_bytes = archive_le32dec(read_buf);
+-			uint32_t skip_bytes = archive_le32dec(read_buf);
++			skip_bytes = archive_le32dec(read_buf);
  			__archive_read_filter_consume(self->upstream,
  				4 + skip_bytes);
  		} else {
