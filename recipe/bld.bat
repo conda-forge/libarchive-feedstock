@@ -9,10 +9,10 @@ if "%VS_MAJOR%" == "9" (
   copy %RECIPE_DIR%\stdbool.h lib\
   copy %LIBRARY_INC%\stdint.h lib\
   if "%ARCH%" == "64" (
-    # The Windows 6.0A SDK does not provide the bcrypt.lib for 64-bit:
-    # C:\Program Files\Microsoft SDKs\Windows\v6.0A\Lib\x64
-    # .. yet does for 32-bit, oh well, this may disable password protected zip support.
-    # https://social.msdn.microsoft.com/Forums/windowsdesktop/en-US/673cc344-430c-4510-96e8-80b0bb42ae11/can-not-link-bcryptlib-to-an-64bit-build?forum=windowssdk
+::  The Windows 6.0A SDK does not provide the bcrypt.lib for 64-bit:
+::  C:\Program Files\Microsoft SDKs\Windows\v6.0A\Lib\x64
+::  .. yet does for 32-bit, oh well, this may disable password protected zip support.
+::  https://social.msdn.microsoft.com/Forums/windowsdesktop/en-US/673cc344-430c-4510-96e8-80b0bb42ae11/can-not-link-bcryptlib-to-an-64bit-build?forum=windowssdk
     set ENABLE_CNG=NO
   ) else (
     set ENABLE_CNG=YES
@@ -42,4 +42,4 @@ if errorlevel 1 exit 1
 ::         373 - libarchive_test_fully_sparse_files (Failed)
 ::         386 - libarchive_test_warn_missing_hardlink_target (Failed)
 :: ctest -C Release
-::if errorlevel 1 exit 1
+:: if errorlevel 1 exit 1
