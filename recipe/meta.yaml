@@ -18,6 +18,9 @@ source:
     # Hiding warnings is poor practice.
     # - 0005-VC9-compatibility-ignore-some-warnings.patch
     - 0006-VC-openssl-define-inline-as-__inline.patch
+    # These warnings are errors when compiling lz-4 support
+    - 0007-CMake-VC9-compatibility-ignore-some-warnings.patch
+    - 0008-VC9-compatibility-remove-C99.patch
 
 build:
   number: 5
@@ -25,6 +28,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - c99-to-c89          # [win and vc<14]
     - autoconf  # [unix]
     - automake  # [unix]
     - libtool  # [unix]
@@ -33,7 +37,7 @@ requirements:
   host:
     - bzip2
     - libiconv  # [osx]
-    - lz4-c  # [win and vc>=14]
+    - lz4-c
     - xz
     - lzo
     - openssl
