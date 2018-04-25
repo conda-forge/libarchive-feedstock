@@ -35,6 +35,7 @@ requirements:
     - libtool  # [unix]
     - pkg-config  # [unix]
     - cmake  # [win]
+    - make  # [unix]
   host:
     - bzip2
     - libiconv  # [osx]
