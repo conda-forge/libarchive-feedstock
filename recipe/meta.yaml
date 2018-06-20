@@ -24,9 +24,10 @@ source:
     - 0007-CMake-VC9-compatibility-ignore-some-warnings.patch
     - 0008-VC9-compatibility-remove-C99.patch
     - 0009-CMake-Force-Multi-threaded-DLL-runtime.patch
+    - 0010-Use-CreateSymbolicLinkW-on-Windows-for-symlinks-WIP.patch
 
 build:
-  number: 6
+  number: 7
 
 requirements:
   build:
