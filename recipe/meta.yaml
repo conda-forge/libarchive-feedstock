@@ -15,25 +15,26 @@ build:
 
 requirements:
   build:
-    - toolchain
     - autoconf  # [unix]
     - automake  # [unix]
     - libtool  # [unix]
     - pkg-config  # [unix]
-    - bzip2 1.0.*
+    - {{ compiler('c') }}
+  host:
+    - bzip2
     - expat
     - libiconv
-    - openssl 1.0.*
-    - xz 5.2.*
-    - zlib 1.2.*
+    - openssl
+    - xz
+    - zlib
 
   run:
-    - bzip2 1.0.*
+    - bzip2
     - expat
     - libiconv
-    - openssl 1.0.*
-    - xz 5.2.*
-    - zlib 1.2.*
+    - openssl
+    - xz
+    - zlib
 
 test:
   commands:
