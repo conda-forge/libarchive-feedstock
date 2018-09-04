@@ -30,16 +30,21 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - c99-to-c89          # [win and vc<14]
-    - autoconf  # [unix]
-    - automake  # [unix]
-    - libtool  # [unix]
+    # Does not work in this recips at present
+    # we manually convert C99 to C89 instead.
+    # - c99-to-c89  # [win and vc<14]
+    - msinttypes  # [win and vc<14]
+    - autoconf    # [unix]
+    - automake    # [unix]
+    - libtool     # [unix]
     - pkg-config  # [unix]
-    - cmake  # [win]
-    - make  # [unix]
+    - cmake       # [win]
+    - make        # [unix]
+    - jom         # [win]
   host:
+    - msinttypes  # [win and vc<14]
     - bzip2
-    - libiconv  # [osx]
+    - libiconv    # [osx]
     - lz4-c
     - xz
     - lzo

@@ -6,8 +6,6 @@ set INCLUDE=%LIBRARY_INC%;%INCLUDE%
 :: VS2008 doesn't have stdbool.h so copy in our own
 :: to 'lib' where the other headers are so it gets picked up.
 if "%VS_MAJOR%" == "9" (
-  copy %RECIPE_DIR%\stdbool.h lib\
-  copy %LIBRARY_INC%\stdint.h lib\
   if "%ARCH%" == "64" (
 ::  The Windows 6.0A SDK does not provide the bcrypt.lib for 64-bit:
 ::  C:\Program Files\Microsoft SDKs\Windows\v6.0A\Lib\x64
@@ -21,19 +19,42 @@ if "%VS_MAJOR%" == "9" (
   )
 )
 
+if "%vc%" NEQ "9" goto not_vc9
+:: This does not work yet:
+:: usage: cl [ option... ] filename... [ /link linkoption... ]
+  set USE_C99_WRAP=no
+  copy %LIBRARY_INC%\inttypes.h src\common\inttypes.h
+  copy %LIBRARY_INC%\stdint.h src\common\stdint.h
+  goto endit
+:not_vc9
+  set USE_C99_WRAP=no
+:endit
+
+if exist CMakeCache.txt goto build
+if "%USE_C99_WRAP%" NEQ "yes" goto skip_c99_wrap
+set COMPILER=-DCMAKE_C_COMPILER=c99-to-c89-cmake-nmake-wrap.bat
+set C99_TO_C89_WRAP_DEBUG_LEVEL=1
+set C99_TO_C89_WRAP_SAVE_TEMPS=1
+set C99_TO_C89_WRAP_NO_LINE_DIRECTIVES=1
+set C99_TO_C89_CONV_DEBUG_LEVEL=1
+:skip_c99_wrap
 :: set cflags because NDEBUG is set in Release configuration, which errors out in test suite due to no assert
-cmake -G"%CMAKE_GENERATOR%" ^
+cmake -G "NMake Makefiles" ^
+      -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
+      %COMPILER% ^
+      -DCMAKE_BUILD_TYPE=Release ^
+      -DCMAKE_C_USE_RESPONSE_FILE_FOR_OBJECTS:BOOL=FALSE ^
       -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -DCMAKE_C_FLAGS_RELEASE="%CFLAGS%" ^
       -DENABLE_CNG=%ENABLE_CNG% ^
       .
 
-:: Build.
-cmake --build . --config Release
-if errorlevel 1 exit /b 1
+:build
 
-:: Install.
-cmake --build . --config Release --target install
+:: Build.
+jom -j%CPU_COUNT% VERBOSE=1
+if errorlevel 1 exit /b 1
+jom VERBOSE=1 install
 if errorlevel 1 exit /b 1
 
 :: Test.
