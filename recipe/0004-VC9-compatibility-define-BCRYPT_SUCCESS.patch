@@ -4,7 +4,7 @@
  } archive_crypto_ctx;
  
  #elif defined(_WIN32) && !defined(__CYGWIN__) && defined(HAVE_BCRYPT_H)
--#include <Bcrypt.h>
+-#include <bcrypt.h>
 -
 -/* Common in other bcrypt implementations, but missing from VS2008. */
 -#ifndef BCRYPT_SUCCESS
@@ -16,15 +16,15 @@
  #define AES_BLOCK_SIZE 16
 --- work.orig/libarchive/archive_hmac_private.h	2018-04-22 06:33:58.565158400 -0500
 +++ work/libarchive/archive_hmac_private.h	2018-04-22 07:01:16.915110000 -0500
-@@ -54,7 +54,7 @@
- typedef	CCHmacContext archive_hmac_sha1_ctx;
+@@ -64,7 +64,7 @@
+ } archive_crypto_ctx;
  
  #elif defined(_WIN32) && !defined(__CYGWIN__) && defined(HAVE_BCRYPT_H)
 -#include <bcrypt.h>
 +#include "bcrypt_with_vs2008.h"
  
- typedef struct {
- 	BCRYPT_ALG_HANDLE	hAlg;
+ /* Common in other bcrypt implementations, but missing from VS2008. */
+ #ifndef BCRYPT_SUCCESS
 --- work.orig/libarchive/bcrypt_with_vs2008.h	2018-04-22 07:33:12.000000000 -0500
 +++ work/libarchive/bcrypt_with_vs2008.h	2018-04-22 07:01:13.212019900 -0500
 @@ -0,0 +1,14 @@
