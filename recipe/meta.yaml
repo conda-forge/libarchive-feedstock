@@ -1,4 +1,4 @@
-{% set version = "3.3.2" %}
+{% set version = "3.3.3" %}
 
 package:
   name: libarchive
@@ -7,7 +7,7 @@ package:
 source:
   fn: libarchive-{{ version }}.tar.gz
   url: https://github.com/libarchive/libarchive/archive/v{{ version }}.tar.gz
-  sha256: 22560b89d420b11a4a724877bc6672b7d7c0f239e77d42a39dcc5a9c3b28db82
+  sha256: 720da414e7aebb255fcdaee106894e4d30e2472ac1390c2c15b70c84c7479658
 
 build:
   number: 0
