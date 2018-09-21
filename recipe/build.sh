@@ -9,6 +9,7 @@ ${SRC_DIR}/configure --prefix=${PREFIX}  \
                      --with-lz4          \
                      --with-lzma         \
                      --with-lzo2         \
+                     --with-zstd         \
                      --without-cng       \
                      --with-openssl      \
                      --without-nettle    \

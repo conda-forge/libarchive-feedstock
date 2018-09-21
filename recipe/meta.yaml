@@ -25,7 +25,7 @@ source:
     - 0010-Use-CreateSymbolicLinkW-on-Windows-for-symlinks-WIP.patch
 
 build:
-  number: 7
+  number: 1
 
 requirements:
   build:
@@ -51,6 +51,7 @@ requirements:
     - openssl
     - libxml2
     - zlib
+    - zstd
 
 test:
   files:
