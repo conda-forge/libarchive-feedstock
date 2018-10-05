@@ -1,22 +1,20 @@
 #!/bin/bash
 
-# Needed for the tests.
-export CFLAGS="-std=c99 ${CFLAGS}"
-
-if [ "`uname`" == 'Darwin' ]
-then
-    export LIBRARY_SEARCH_VAR=DYLD_FALLBACK_LIBRARY_PATH
-else
-    export LIBRARY_SEARCH_VAR=LD_LIBRARY_PATH
-fi
-
-autoreconf -ivf
-./configure --prefix=${PREFIX} \
-            --with-expat \
-            --without-nettle \
-            --without-lz4 \
-            --without-lzmadec \
-            --without-xml2
-make -j${CPU_COUNT}
-#eval ${LIBRARY_SEARCH_VAR}="${PREFIX}/lib" make check
+autoreconf -vfi
+mkdir build-${HOST} && pushd build-${HOST}
+${SRC_DIR}/configure --prefix=${PREFIX}  \
+                     --with-zlib         \
+                     --with-bz2lib       \
+                     --with-iconv        \
+                     --with-lz4          \
+                     --with-lzma         \
+                     --with-lzo2         \
+                     --with-zstd         \
+                     --without-cng       \
+                     --with-openssl      \
+                     --without-nettle    \
+                     --with-xml2         \
+                     --without-expat
+make -j${CPU_COUNT} ${VERBOSE_AT}
 make install
+popd
