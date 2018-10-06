@@ -3,7 +3,7 @@ About libarchive
 
 Home: http://www.libarchive.org/
 
-Package license: BSD 2-Clause
+Package license: BSD-2-Clause
 
 Feedstock license: BSD 3-Clause
 
@@ -16,7 +16,7 @@ Current build status
 
 [![Linux](https://img.shields.io/circleci/project/github/conda-forge/libarchive-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/libarchive-feedstock)
 [![OSX](https://img.shields.io/travis/conda-forge/libarchive-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/libarchive-feedstock)
-![Windows disabled](https://img.shields.io/badge/Windows-disabled-lightgrey.svg)
+[![Windows](https://img.shields.io/appveyor/ci/conda-forge/libarchive-feedstock/master.svg?label=Windows)](https://ci.appveyor.com/project/conda-forge/libarchive-feedstock/branch/master)
 
 Current release info
 ====================
