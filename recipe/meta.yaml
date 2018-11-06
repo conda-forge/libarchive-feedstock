@@ -25,7 +25,7 @@ source:
     - 0010-Use-CreateSymbolicLinkW-on-Windows-for-symlinks-WIP.patch
 
 build:
-  number: 2
+  number: 4
 
 requirements:
   build:
@@ -41,6 +41,7 @@ requirements:
     - cmake       # [win]
     - make        # [unix]
     - jom         # [win]
+    - m2-patch    # [win]
   host:
     - msinttypes  # [win and vc<14]
     - bzip2
