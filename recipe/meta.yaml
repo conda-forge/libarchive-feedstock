@@ -40,7 +40,7 @@ requirements:
     - pkg-config  # [unix]
     - cmake       # [win]
     - make        # [unix]
-    - jom         # [win]
+    - ninja       # [win]
     - m2-patch    # [win]
   host:
     - msinttypes  # [win and vc<14]
