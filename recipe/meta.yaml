@@ -24,7 +24,11 @@ source:
     - patches/0010-Use-CreateSymbolicLinkW-on-Windows-for-symlinks-WIP.patch
 
 build:
-  number: 1001
+  number: 1002
+  run_exports:
+    # https://abi-laboratory.pro/index.php?view=timeline&l=libarchive
+    - {{ pin_subpackage('libarchive', max_pin='x.x') }}
+
 
 requirements:
   build:
