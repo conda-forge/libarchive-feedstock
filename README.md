@@ -20,7 +20,6 @@ Current build status
 
 [![Linux](https://img.shields.io/circleci/project/github/conda-forge/libarchive-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/libarchive-feedstock)
 [![OSX](https://img.shields.io/travis/conda-forge/libarchive-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/libarchive-feedstock)
-[![Windows](https://img.shields.io/appveyor/ci/conda-forge/libarchive-feedstock/master.svg?label=Windows)](https://ci.appveyor.com/project/conda-forge/libarchive-feedstock/branch/master)
 
 Current release info
 ====================
