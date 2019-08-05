@@ -48,7 +48,7 @@ requirements:
   host:
     - msinttypes  # [win and vc<14]
     - bzip2
-    - libiconv    # [osx]
+    - libiconv    # [unix]
     - lz4-c
     - xz
     - lzo
