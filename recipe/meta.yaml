@@ -50,21 +50,10 @@ requirements:
   host:
     - msinttypes  # [win and vc<14]
     - bzip2
-    - libiconv    # [unix]
+    - libiconv    # [not linux]
     - lz4-c
     - xz
     - lzo
-    - openssl
-    - libxml2
-    - zlib
-    - zstd
-  run:
-    - bzip2
-    - libiconv    # [unix]
-    - lz4-c
-    - xz
-    - lzo
-    # - openssl     # [not osx]
     - openssl
     - libxml2
     - zlib
