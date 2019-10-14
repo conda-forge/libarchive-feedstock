@@ -10,6 +10,10 @@ jobs:
   strategy:
     maxParallel: 4
     matrix:
+      win_c_compilervs2008vc9:
+        CONFIG: win_c_compilervs2008vc9
+        CONDA_BLD_PATH: D:\\bld\\
+        UPLOAD_PACKAGES: True
       win_c_compilervs2015vc14:
         CONFIG: win_c_compilervs2015vc14
         CONDA_BLD_PATH: D:\\bld\\
@@ -95,7 +99,9 @@ jobs:
       condition: not(contains(variables['CONFIG'], 'vs2008'))
 
     - script: |
+        set "GIT_BRANCH=%BUILD_SOURCEBRANCHNAME%"
         upload_package .\ .\recipe .ci_support\%CONFIG%.yaml
+      displayName: Upload package
       env:
         BINSTAR_TOKEN: $(BINSTAR_TOKEN)
       condition: not(eq(variables['UPLOAD_PACKAGES'], 'False'))

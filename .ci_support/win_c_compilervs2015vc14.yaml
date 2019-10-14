@@ -6,6 +6,8 @@ channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
+libiconv:
+- '1.15'
 libxml2:
 - '2.9'
 lz4_c:
@@ -17,6 +19,8 @@ openssl:
 pin_run_as_build:
   bzip2:
     max_pin: x
+  libiconv:
+    max_pin: x.x
   libxml2:
     max_pin: x.x
   lz4-c:
@@ -43,4 +47,4 @@ zip_keys:
 zlib:
 - '1.2'
 zstd:
-- 1.4.0
+- 1.4.3
