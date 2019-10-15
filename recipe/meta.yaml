@@ -26,7 +26,7 @@ source:
     # - patches/0010-Use-CreateSymbolicLinkW-on-Windows-for-symlinks-WIP.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=libarchive
