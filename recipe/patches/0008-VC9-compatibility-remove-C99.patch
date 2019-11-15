@@ -92,30 +92,3 @@
  	char *content = "./foo type=file uname=root gname=root mode=0755\n";
  	char *filename = "output.tar";
  
---- work.orig/libarchive/archive_read_support_filter_zstd.c	2018-09-03 22:07:16.000000000 -0500
-+++ work/libarchive/archive_read_support_filter_zstd.c	2018-11-02 08:36:21.350115700 -0500
-@@ -209,7 +209,9 @@
- 
- 	state = (struct private_data *)self->data;
- 
--	out = (ZSTD_outBuffer) { state->out_block, state->out_block_size, 0 };
-+	out.dst = state->out_block;
-+	out.size = state->out_block_size;
-+	out.pos = 0;
- 
- 	/* Try to fill the output buffer. */
- 	while (out.pos < out.size && !state->eof) {
---- work.orig/libarchive/archive_write_add_filter_zstd.c	2018-09-03 22:07:16.000000000 -0500
-+++ work/libarchive/archive_write_add_filter_zstd.c	2018-11-02 08:52:09.469969000 -0500
-@@ -259,7 +259,10 @@
- drive_compressor(struct archive_write_filter *f,
-     struct private_data *data, int finishing, const void *src, size_t length)
- {
--	ZSTD_inBuffer in = (ZSTD_inBuffer) { src, length, 0 };
-+	ZSTD_inBuffer in;
-+	in.src = src;
-+	in.size = length;
-+	in.pos = 0;
- 
- 	for (;;) {
- 		if (data->out.pos == data->out.size) {
