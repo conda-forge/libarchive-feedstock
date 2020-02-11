@@ -1,4 +1,4 @@
-{% set version = "3.3.3" %}
+{% set version = "3.4.2" %}
 
 package:
   name: libarchive
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/libarchive/libarchive/archive/v{{ version }}.tar.gz
-  sha256: 720da414e7aebb255fcdaee106894e4d30e2472ac1390c2c15b70c84c7479658
+  sha256: ce926cea1195b53ee0868020c00f8c98ecf15497856b79c85430749634827f80
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
     - patches/0002-xar-fix-bad-seek-in-move_reading_point.patch
@@ -24,7 +24,7 @@ source:
     - patches/0010-Use-CreateSymbolicLinkW-on-Windows-for-symlinks-WIP.patch
 
 build:
-  number: 1007
+  number: 0
   skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=libarchive
