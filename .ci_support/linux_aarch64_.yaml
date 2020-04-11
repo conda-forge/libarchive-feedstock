@@ -11,7 +11,7 @@ cdt_arch:
 cdt_name:
 - cos7
 channel_sources:
-- conda-forge,c4aarch64,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 docker_image:
@@ -21,11 +21,11 @@ libiconv:
 libxml2:
 - '2.9'
 lz4_c:
-- 1.8.3
+- 1.9.2
 lzo:
 - '2'
 openssl:
-- 1.1.1a
+- 1.1.1
 pin_run_as_build:
   bzip2:
     max_pin: x

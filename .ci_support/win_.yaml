@@ -1,7 +1,7 @@
 bzip2:
 - '1'
 c_compiler:
-- vs2015
+- vs2017
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -9,11 +9,11 @@ channel_targets:
 libxml2:
 - '2.9'
 lz4_c:
-- 1.8.3
+- 1.9.2
 lzo:
 - '2'
 openssl:
-- 1.1.1a
+- 1.1.1
 pin_run_as_build:
   bzip2:
     max_pin: x
@@ -25,8 +25,6 @@ pin_run_as_build:
     max_pin: x
   openssl:
     max_pin: x.x.x
-  vc:
-    max_pin: x
   xz:
     max_pin: x.x
   zlib:
@@ -37,9 +35,6 @@ vc:
 - '14'
 xz:
 - '5.2'
-zip_keys:
-- - vc
-  - c_compiler
 zlib:
 - '1.2'
 zstd:
