@@ -42,7 +42,7 @@ requirements:
     - ninja       # [win]
     - m2-patch    # [win]
     # Used by bld.bat as an in-build test
-    - curl        # [win]
+    # - curl        # [win]
   host:
     - msinttypes  # [win and vc<14]
     - bzip2

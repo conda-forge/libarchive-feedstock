@@ -44,7 +44,8 @@ cmake -G "Ninja" ^
       -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
       %COMPILER% ^
       -DCMAKE_BUILD_TYPE=Release ^
-      -DCMAKE_ENABLE_LZO=FALSE ^
+      -DENABLE_LZO=FALSE ^
+      -DENABLE_ZLIB=TRUE ^
       -DCMAKE_C_USE_RESPONSE_FILE_FOR_OBJECTS:BOOL=FALSE ^
       -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -DCMAKE_C_FLAGS_RELEASE="%CFLAGS%" ^
@@ -70,9 +71,17 @@ if errorlevel 1 exit /b 1
 :: ctest -C Release
 :: if errorlevel 1 exit 1
 
+:: Win 32-bit seems to want to run the wrong zlib DLL
 :: Test extracting a 7z. This failed due to not using the multi-threaded DLL runtime, fixed by 0009-CMake-Force-Multi-threaded-DLL-runtime.patch
-%BUILD_PREFIX%\Library\bin\curl.exe -SLO http://download.qt.io/development_releases/prebuilt/llvmpipe/windows/opengl32sw-64-mesa_12_0_rc2.7z
+:: %BUILD_PREFIX%\Library\bin\curl.exe -SLO http://download.qt.io/development_releases/prebuilt/llvmpipe/windows/opengl32sw-64-mesa_12_0_rc2.7z
 :: powershell -command "& { (New-Object Net.WebClient).DownloadFile('http://download.qt.io/development_releases/prebuilt/llvmpipe/windows/opengl32sw-64-mesa_12_0_rc2.7z', 'opengl32sw-64-mesa_12_0_rc2.7z') }"
+:: if errorlevel 1 exit 1
+:: %LIBRARY_BIN%\bsdtar.exe -xf opengl32sw-64-mesa_12_0_rc2.7z
+:: if errorlevel 1 exit 1
+
+echo Trying to run %LIBRARY_BIN%\bsdcat.exe --version
+%LIBRARY_BIN%\bsdcat.exe --version
 if errorlevel 1 exit 1
-%LIBRARY_BIN%\bsdtar.exe -xf opengl32sw-64-mesa_12_0_rc2.7z
+echo Trying to run %LIBRARY_BIN%\bsdcpio.exe --version
+%LIBRARY_BIN%\bsdcpio.exe --version
 if errorlevel 1 exit 1
