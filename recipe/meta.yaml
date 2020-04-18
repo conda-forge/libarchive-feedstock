@@ -22,6 +22,9 @@ build:
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=libarchive
     - {{ pin_subpackage('libarchive', max_pin='x.x') }}
+  # macOS' native crypto gets used here, but the headers are needed
+  ignore_run_exports:  # [osx]
+    - openssl  # [osx]
 
 requirements:
   build:
@@ -46,8 +49,16 @@ requirements:
     - libiconv    # [not linux]
     - lz4-c
     - xz
-    - lzo
-    - openssl
+    # This is GPL-v2+, the libarchive authors explicitly ask that
+    # people do not link to this (and if we do, this would need to
+    # also be released as GPL-v2+, and that is against their wishes
+    # and it is not clear if that is even possible)
+    # https://github.com/libarchive/libarchive/releases/tag/v3.3.2
+    # "Linking libarchive against liblzo violates LZO GPL licence.
+    #  Please don't distribute binary packages of libarchive linked
+    #  against liblzo."
+    # - lzo
+    - openssl  # [not osx]
     - libxml2
     - zlib
     - zstd
