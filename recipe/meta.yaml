@@ -17,7 +17,7 @@ source:
     - patches/0007-CMake-Force-Multi-threaded-DLL-runtime.patch
 
 build:
-  number: 0
+  number: 1
   # skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=libarchive
@@ -68,7 +68,9 @@ test:
   requires:
     - ripgrep
   files:
-    - test-archives
+    - test-archives/hello_world.xar
+    - test-archives/archive.7z
+    - test-archives/hello_world.tar.zst
   commands:
     # Verify pkg-config file is in place.
     - test -f "${PREFIX}/lib/pkgconfig/libarchive.pc"  # [unix]
