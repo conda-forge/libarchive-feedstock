@@ -51,6 +51,7 @@ cmake -G "NMake Makefiles JOM" ^
       -DCMAKE_C_FLAGS_RELEASE="%CFLAGS%" ^
       -DENABLE_CNG=%ENABLE_CNG% ^
      .
+if errorlevel 1 exit /b 1
 
 :build
 
