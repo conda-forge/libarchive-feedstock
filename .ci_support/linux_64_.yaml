@@ -1,11 +1,17 @@
 bzip2:
 - '1'
 c_compiler:
-- vs2017
+- gcc
+c_compiler_version:
+- '7'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
+docker_image:
+- condaforge/linux-anvil-comp7
+libiconv:
+- '1.16'
 libxml2:
 - '2.9'
 lz4_c:
@@ -17,6 +23,8 @@ openssl:
 pin_run_as_build:
   bzip2:
     max_pin: x
+  libiconv:
+    max_pin: x.x
   libxml2:
     max_pin: x.x
   lz4-c:
@@ -29,13 +37,11 @@ pin_run_as_build:
     max_pin: x.x
   zlib:
     max_pin: x.x
-  zstd:
-    max_pin: x.x.x
-vc:
-- '14'
+target_platform:
+- linux-64
 xz:
 - '5.2'
 zlib:
 - '1.2'
 zstd:
-- 1.4.4
+- '1.4'
