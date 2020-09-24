@@ -9,7 +9,6 @@ source:
   sha256: 19556c1c67aacdff547fd719729630444dbc7161c63eca661a310676a022bb01
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
-    - patches/0002-xar-fix-bad-seek-in-move_reading_point.patch
     - patches/0003-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
     - patches/0004-VC9-compatibility-define-BCRYPT_SUCCESS.patch
     # This should not be applied in general. It exists so I can build it for
@@ -21,7 +20,6 @@ source:
     - patches/0007-CMake-VC9-compatibility-ignore-some-warnings.patch
     - patches/0008-VC9-compatibility-remove-C99.patch
     - patches/0009-CMake-Force-Multi-threaded-DLL-runtime.patch
-    - patches/0010-Use-CreateSymbolicLinkW-on-Windows-for-symlinks-WIP.patch
 
 build:
   number: 0
