@@ -5,11 +5,9 @@ Home: http://www.libarchive.org/
 
 Package license: BSD-2-Clause
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/libarchive-feedstock/blob/master/LICENSE.txt)
 
 Summary: Multi-format archive and compression library
-
-
 
 Current build status
 ====================
