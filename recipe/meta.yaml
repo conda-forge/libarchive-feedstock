@@ -46,7 +46,7 @@ requirements:
     # - curl        # [win]
     - patch       # [not win]
     - m2-patch    # [win]
-   host:
+  host:
     - msinttypes  # [win and vc<14]
     - bzip2
     - libiconv    # [not linux]
