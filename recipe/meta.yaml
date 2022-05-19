@@ -18,7 +18,7 @@ source:
 
 build:
   number: 2
-  # trigger: 0
+  # skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=libarchive
     - {{ pin_subpackage('libarchive', max_pin='x.x') }}
