@@ -1,4 +1,4 @@
-{% set version = "3.4.2" %}
+{% set version = "3.5.2" %}
 
 package:
   name: libarchive
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/libarchive/libarchive/releases/download/v{{ version }}/libarchive-{{ version }}.tar.gz
-  sha256: b60d58d12632ecf1e8fad7316dc82c6b9738a35625746b47ecdcaf4aed176176
+  sha256: 5f245bd5176bc5f67428eb0aa497e09979264a153a074d35416521a5b8e86189
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
     - patches/0002-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
@@ -17,7 +17,7 @@ source:
     - patches/0007-CMake-Force-Multi-threaded-DLL-runtime.patch
 
 build:
-  number: 2
+  number: 0
   # skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=libarchive
@@ -96,11 +96,13 @@ test:
     - popd
 
 about:
-  home: http://www.libarchive.org/
+  home: https://libarchive.org/
   summary: Multi-format archive and compression library
   license: BSD-2-Clause
   license_file: COPYING
   license_family: BSD
+  dev_url: https://github.com/libarchive/libarchive
+  doc_url: https://github.com/libarchive/libarchive/wiki
 
 extra:
   recipe-maintainers:
