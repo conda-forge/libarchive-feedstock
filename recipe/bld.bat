@@ -40,7 +40,7 @@ set C99_TO_C89_CONV_DEBUG_LEVEL=1
 :skip_c99_wrap
 :: set cflags because NDEBUG is set in Release configuration, which errors out in test suite due to no assert
 
-cmake -G "NMake Makefiles JOM" ^
+cmake -G "Ninja" ^
       -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
       %COMPILER% ^
       -DCMAKE_BUILD_TYPE=Release ^
@@ -56,12 +56,10 @@ if errorlevel 1 exit /b 1
 :build
 
 :: Build.
-jom -j%CPU_COUNT% VERBOSE=1
-:: ninja -j%CPU_COUNT% -v
+:: jom -j%CPU_COUNT% VERBOSE=1
+ninja -j%CPU_COUNT% -v
 if errorlevel 1 exit /b 1
-:: Install.
-jom install
-:: ninja install
+ninja install
 if errorlevel 1 exit /b 1
 
 :: Test.
@@ -74,24 +72,8 @@ if errorlevel 1 exit /b 1
 :: ctest -C Release
 :: if errorlevel 1 exit 1
 
-:: Windows 32-bit seems to want to run the wrong zlib DLL
-:: We have 2 zlib-1.2.11 build #3 for win-64:
-:: zlib-1.2.11-h3cc03e0_3.tar.bz2	120 KB	2018-11-21 15:50:01 +0000	928fa9aa513a1d08016a4079e2c52706a3fd29a5f2acd16eabec5e8ab9599478	774d60f873e10acc14be0d239c18d614
-:: zlib-1.2.11-h62dcd97_3.tar.bz2	128 KB	2018-11-21 15:46:22 +0000	3a5148e6b79ae0ec581df96d97d248d38366db49109f1726eda76639551745be	6f96fd91475cc78aabf76d2e1a9ed91f
-:: https://repo.anaconda.com/pkgs/main/win-64/zlib-1.2.11-h3cc03e0_3.tar.bz2
-:: https://repo.anaconda.com/pkgs/main/win-64/zlib-1.2.11-h62dcd97_3.tar.bz2
-
 :: Test extracting a 7z. This failed due to not using the multi-threaded DLL runtime, fixed by 0009-CMake-Force-Multi-threaded-DLL-runtime.patch
-:: %BUILD_PREFIX%\Library\bin\curl.exe -SLO http://download.qt.io/development_releases/prebuilt/llvmpipe/windows/opengl32sw-64-mesa_12_0_rc2.7z
-:: powershell -command "& { (New-Object Net.WebClient).DownloadFile('http://download.qt.io/development_releases/prebuilt/llvmpipe/windows/opengl32sw-64-mesa_12_0_rc2.7z', 'opengl32sw-64-mesa_12_0_rc2.7z') }"
-:: if errorlevel 1 exit 1
-:: %LIBRARY_BIN%\bsdtar.exe -xf opengl32sw-64-mesa_12_0_rc2.7z
-:: if errorlevel 1 exit 1
-
-echo Trying to run %LIBRARY_BIN%\bsdcat.exe --version
-%LIBRARY_BIN%\bsdcat.exe --version
+powershell -command "& { (New-Object Net.WebClient).DownloadFile('http://download.qt.io/development_releases/prebuilt/llvmpipe/windows/opengl32sw-64-mesa_12_0_rc2.7z', 'opengl32sw-64-mesa_12_0_rc2.7z') }"
 if errorlevel 1 exit 1
-
-echo Trying to run %LIBRARY_BIN%\bsdcpio.exe --version
-%LIBRARY_BIN%\bsdcpio.exe --version
+%LIBRARY_BIN%\bsdtar -xf opengl32sw-64-mesa_12_0_rc2.7z
 if errorlevel 1 exit 1
