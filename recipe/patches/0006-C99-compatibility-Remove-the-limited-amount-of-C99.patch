@@ -7,10 +7,9 @@ Subject: [PATCH 6/7] C99 compatibility: Remove (the limited amount of) C99
  libarchive/archive_read_support_filter_lz4.c  | 6 ++++--
  libarchive/archive_read_support_filter_zstd.c | 4 +++-
  libarchive/archive_write_add_filter_zstd.c    | 5 ++++-
- libarchive/archive_write_disk_windows.c       | 2 +-
  libarchive/test/test_sparse_basic.c           | 8 +++-----
  tar/test/test_option_C_mtree.c                | 3 +--
- 6 files changed, 16 insertions(+), 12 deletions(-)
+ 5 files changed, 15 insertions(+), 11 deletions(-)
 
 diff --git a/libarchive/archive_read_support_filter_lz4.c b/libarchive/archive_read_support_filter_lz4.c
 index 43ee6c2b..ce18e7f9 100644
@@ -80,19 +79,6 @@ index 4c91551e..047b11a8 100644
  
  	for (;;) {
  		if (data->out.pos == data->out.size) {
-diff --git a/libarchive/archive_write_disk_windows.c b/libarchive/archive_write_disk_windows.c
-index 77e36c4a..3d1831fa 100644
---- a/libarchive/archive_write_disk_windows.c
-+++ b/libarchive/archive_write_disk_windows.c
-@@ -1662,7 +1662,7 @@ create_filesystem_object(struct archive_write_disk *a)
- 	/* Since link(2) and symlink(2) don't handle modes, we're done here. */
- 	linkname = archive_entry_hardlink_w(a->entry);
- 	if (linkname != NULL) {
--		wchar_t *linkfull, *namefull;
-+		wchar_t const *linkfull, *namefull;
- 
- 		linkfull = __la_win_permissive_name_w(linkname);
- 		namefull = __la_win_permissive_name_w(a->name);
 diff --git a/libarchive/test/test_sparse_basic.c b/libarchive/test/test_sparse_basic.c
 index 0fbb7f7b..6461633c 100644
 --- a/libarchive/test/test_sparse_basic.c
