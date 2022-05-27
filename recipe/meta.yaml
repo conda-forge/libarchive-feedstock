@@ -39,7 +39,7 @@ requirements:
     - pkg-config  # [unix]
     - cmake       # [win]
     - make        # [unix]
-    # - ninja       # [win]
+    - ninja       # [win]
     - jom         # [win]
     - m2-patch    # [win]
     # Used by bld.bat as an in-build test
