@@ -40,12 +40,8 @@ echo "Building..."
 ninja || exit 1 
 
 # Perform tests.
-if [[ ${target_platform} ~= "*linux-64*" || ${target_platform} ~= "*s390x*" || ${target_platform} ~= "*aarch64*" ]]; then
-  echo "Testing..."
-  ctest -VV --output-on-failure || exit 1
-else
-  echo "Skip testing on ""${target_platform}"
-fi
+#echo "Testing..."
+#ctest -VV --output-on-failure || exit 1
 
 # Installing
 echo "Installing..."
