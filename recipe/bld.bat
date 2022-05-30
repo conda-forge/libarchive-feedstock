@@ -50,6 +50,8 @@ cmake -G "Ninja" ^
       -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -DCMAKE_C_FLAGS_RELEASE="%CFLAGS%" ^
       -DENABLE_CNG=%ENABLE_CNG% ^
+      -DENABLE_BZIP2=TRUE ^
+      -DBZIP2_ROOT=%PREFIX%/lib
      .
 if errorlevel 1 exit /b 1
 
@@ -69,5 +71,5 @@ if errorlevel 1 exit /b 1
 ::         372 - libarchive_test_sparse_basic (Failed)
 ::         373 - libarchive_test_fully_sparse_files (Failed)
 ::         386 - libarchive_test_warn_missing_hardlink_target (Failed)
-:: ctest -C Release
-:: if errorlevel 1 exit 1
+ctest -C Release
+if errorlevel 1 exit 1
