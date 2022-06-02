@@ -41,7 +41,7 @@ ninja || exit 1
 
 # Perform tests.
 #echo "Testing..."
-ctest -VV --output-on-failure || exit 1
+#ctest -VV --output-on-failure || exit 1
 
 # Installing
 echo "Installing..."

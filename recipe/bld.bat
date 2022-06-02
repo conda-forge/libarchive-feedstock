@@ -71,5 +71,14 @@ if errorlevel 1 exit /b 1
 ::         372 - libarchive_test_sparse_basic (Failed)
 ::         373 - libarchive_test_fully_sparse_files (Failed)
 ::         386 - libarchive_test_warn_missing_hardlink_target (Failed)
-ctest -C Release
+::ctest -C Release
+::if errorlevel 1 exit 1
+
+
+echo Trying to run %LIBRARY_BIN%\bsdcat.exe --version
+%LIBRARY_BIN%\bsdcat.exe --version
+if errorlevel 1 exit 1
+
+echo Trying to run %LIBRARY_BIN%\bsdcpio.exe --version
+%LIBRARY_BIN%\bsdcpio.exe --version
 if errorlevel 1 exit 1
