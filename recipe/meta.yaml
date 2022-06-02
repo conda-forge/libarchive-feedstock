@@ -77,14 +77,16 @@ test:
     - test -f "${PREFIX}/lib/libarchive${SHLIB_EXT}"   # [unix]
 
     # Check for commands
-    - bsdcat --version
-    - bsdcpio --version
-    - bsdtar --version
-    - pushd test-archives
-    -   bsdtar -vxf hello_world.xar 2>&1 | rg "x hello_world"
-    -   bsdtar -vxf archive.7z 2>&1 | rg "x 7zip-archive"
-    -   bsdtar -vxf hello_world.tar.zst 2>&1 | rg "greets"
-    - popd
+    - if not exist "%LIBRARY_BIN%\\bsdcat.exe" exit 1   # [win32]
+    - if not exist "%LIBRARY_BIN%\\bsdcpio.exe" exit 1  # [win32]
+    - bsdcat --version      # [unix or win64]
+    - bsdcpio --version     # [unix or win64]
+    - bsdtar --version      # [unix or win64]
+    - pushd test-archives   # [unix or win64]
+    -   bsdtar -vxf hello_world.xar 2>&1 | rg "x hello_world"   # [unix or win64]
+    -   bsdtar -vxf archive.7z 2>&1 | rg "x 7zip-archive"       # [unix or win64]
+    -   bsdtar -vxf hello_world.tar.zst 2>&1 | rg "greets"      # [unix or win64]
+    - popd   # [unix or win64]
 
 about:
   home: https://libarchive.org/
