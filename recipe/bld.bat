@@ -43,50 +43,34 @@ set C99_TO_C89_CONV_DEBUG_LEVEL=1
 :: cmd
 echo "Building %PKG_NAME%."
 
-
-:: Isolate the build.
-mkdir Build-%PKG_NAME%
-cd Build-%PKG_NAME%
-if errorlevel 1 exit /b 1
-
 :: Generate the build files.
 echo "Generating the build files..."
 cmake -G "Ninja" ^
       -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
       %COMPILER% ^
       -DCMAKE_BUILD_TYPE=Release ^
-      -DENABLE_LZO=FALSE ^
-      -DENABLE_ZLIB=TRUE ^
       -DCMAKE_C_USE_RESPONSE_FILE_FOR_OBJECTS:BOOL=FALSE ^
       -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -DCMAKE_C_FLAGS_RELEASE="%CFLAGS%" ^
       -DENABLE_CNG=%ENABLE_CNG% ^
-     .
-if errorlevel 1 exit /b 1
+      .
 
 :build
 
 :: Build.
+echo "Building..."
 ninja -j%CPU_COUNT% -v
 if errorlevel 1 exit /b 1
-
-:: Perform tests.
-echo "Testing..."
-ctest -VV --output-on-failure
-:: if errorlevel 1 exit /b 1 there are failed tests
 
 :: Install.
 echo "Installing..."
 ninja install
 if errorlevel 1 exit /b 1
 
-echo Trying to run %LIBRARY_BIN%\bsdcat.exe --version
-%LIBRARY_BIN%\bsdcat.exe --version
-if errorlevel 1 exit 1
-
-echo Trying to run %LIBRARY_BIN%\bsdcpio.exe --version
-%LIBRARY_BIN%\bsdcpio.exe --version
-if errorlevel 1 exit 1
+:: Perform tests.
+::echo "Testing..."
+::ctest -VV --output-on-failure
+:: if errorlevel 1 exit /b 1 there are failed tests
 
 :: Error free exit.
 echo "Error free exit!"
