@@ -1,28 +1,51 @@
 #!/bin/bash
 
-declare -a _EXTRA_OPTS=()
+# Isolate the build.
+mkdir -p build_c
+cd build_c || exit 1
+
+# Generate the build files.
+echo "Generating the build files."
+
+declare -a CMAKE_EXTRA_ARGS=()
 if [[ ${target_platform} == osx-64 ]]; then
-  _EXTRA_OPTS+=(--without-openssl)
+  CMAKE_EXTRA_ARGS+=(-DENABLE_OPENSSL=FALSE)
 else
-  _EXTRA_OPTS+=(--with-openssl)
+  CMAKE_EXTRA_ARGS+=(-DENABLE_OPENSSL=TRUE)
 fi
 
-autoreconf -vfi
-mkdir build-${HOST} || true
-pushd build-${HOST}
-  ${SRC_DIR}/configure --prefix=${PREFIX}  \
-                       --with-zlib  \
-                       --with-bz2lib  \
-                       --with-iconv  \
-                       --with-lz4  \
-                       --with-lzma  \
-                       --without-lzo2  \
-                       --with-zstd  \
-                       --without-cng  \
-                       --without-nettle  \
-                       --with-xml2  \
-                       "${_EXTRA_OPTS[@]}" \
-                       --without-expat > config.log 2>&1 | tee
-  make -j${CPU_COUNT} ${VERBOSE_AT}
-  make install
-popd
+cmake .. ${CMAKE_ARGS}                                   \
+      -GNinja                                            \
+      -DCMAKE_PREFIX_PATH=$PREFIX                        \
+      -DCMAKE_INSTALL_PREFIX=$PREFIX             \
+      -DCMAKE_BUILD_TYPE=Release                         \
+      -DCMAKE_C_USE_RESPONSE_FILE_FOR_OBJECTS:BOOL=FALSE \
+      -DCMAKE_C_FLAGS_RELEASE="$CFLAGS"                  \
+      -DENABLE_ZLIB=TRUE                                 \
+      -DENABLE_BZIP2=TRUE                                \
+      -DBZIP2_ROOT=$PREFIX/lib                           \
+      -DENABLE_ICONV=TRUE                                \
+      -DENABLE_LZ4=TRUE                                  \
+      -DENABLE_LZMA=TRUE                                 \
+      -DENABLE_LZO=FALSE                                 \
+      -DENABLE_ZSTD=TRUE                                 \
+      -DENABLE_CNG=FALSE                                 \
+      -DENABLE_NETTLE=FALSE                              \
+      -DENABLE_XML2=TRUE                                 \
+      -DENABLE_EXPAT=FALSE                               \
+      "${CMAKE_EXTRA_ARGS[@]}"
+
+# Build.
+echo "Building..."
+ninja || exit 1 
+
+# Perform tests.
+#echo "Testing..."
+#ctest -VV --output-on-failure || exit 1
+
+# Installing
+echo "Installing..."
+ninja install || exit 1
+
+# Error free exit!
+echo "Error free exit!"
