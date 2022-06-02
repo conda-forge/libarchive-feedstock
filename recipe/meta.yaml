@@ -33,21 +33,8 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    # Does not work in this recips at present
-    # we manually convert C99 to C89 instead.
-    # - c99-to-c89  # [win and vc<14]
-    - msinttypes  # [win and vc<14]
-    - autoconf    # [unix]
-    - automake    # [unix]
-    - libtool     # [unix]
-    - pkg-config  # [unix]
-    - cmake       # [win]
-    - make        # [unix]
-    - ninja-base       # [win]
-    - jom         # [win]
-    - m2-patch    # [win]
-    # Used by bld.bat as an in-build test
-    # - curl        # [win]
+    - cmake
+    - ninja-base
     - patch       # [not win]
     - m2-patch    # [win]
   host:
