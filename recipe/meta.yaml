@@ -1,24 +1,24 @@
-{% set version = "3.4.2" %}
+{% set version = "3.5.2" %}
 
 package:
   name: libarchive
   version: {{ version }}
 
 source:
-  url: https://github.com/libarchive/libarchive/releases/download/v{{ version }}/libarchive-{{ version }}.tar.gz
-  sha256: b60d58d12632ecf1e8fad7316dc82c6b9738a35625746b47ecdcaf4aed176176
+  url: https://github.com/libarchive/libarchive/archive/v{{ version }}.tar.gz
+  sha256: 126058cb4cf50e36bcf83307f5d987bde2ecebabcae985b6a153116362d25b7b
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
-    - patches/0002-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
-    - patches/0003-VC9-compatibility-define-BCRYPT_SUCCESS.patch
-    - patches/0004-VC9-compatibility-openssl-define-inline-as-__inline.patch
-    - patches/0005-VC9-compatibility-Ignore-some-warnings.patch
-    - patches/0006-C99-compatibility-Remove-the-limited-amount-of-C99.patch
-    - patches/0007-CMake-Force-Multi-threaded-DLL-runtime.patch
-
+    - patches/0003-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
+    - patches/0004-VC9-compatibility-define-BCRYPT_SUCCESS.patch
+    - patches/0006-VC-openssl-define-inline-as-__inline.patch
+    # These warnings are errors when compiling lz-4 support
+    - patches/0007-CMake-VC9-compatibility-ignore-some-warnings.patch
+    - patches/0008-VC9-compatibility-remove-C99.patch
+    - patches/0009-CMake-Force-Multi-threaded-DLL-runtime.patch
 build:
-  number: 2
-  # skip: true  # [win and vc<14]
+  number: 0
+  #skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=libarchive
     - {{ pin_subpackage('libarchive', max_pin='x.x') }}
@@ -29,21 +29,8 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    # Does not work in this recips at present
-    # we manually convert C99 to C89 instead.
-    # - c99-to-c89  # [win and vc<14]
-    - msinttypes  # [win and vc<14]
-    - autoconf    # [unix]
-    - automake    # [unix]
-    - libtool     # [unix]
-    - pkg-config  # [unix]
-    - cmake       # [win]
-    - make        # [unix]
-    # - ninja       # [win]
-    - jom         # [win]
-    - m2-patch    # [win]
-    # Used by bld.bat as an in-build test
-    # - curl        # [win]
+    - cmake
+    - ninja-base  # [not win]
     - patch       # [not win]
     - m2-patch    # [win]
   host:
@@ -86,21 +73,25 @@ test:
     - test -f "${PREFIX}/lib/libarchive${SHLIB_EXT}"   # [unix]
 
     # Check for commands
-    - bsdcat --version
-    - bsdcpio --version
-    - bsdtar --version
-    - pushd test-archives
-    -   bsdtar -vxf hello_world.xar 2>&1 | rg "x hello_world"
-    -   bsdtar -vxf archive.7z 2>&1 | rg "x 7zip-archive"
-    -   bsdtar -vxf hello_world.tar.zst 2>&1 | rg "greets"
-    - popd
+    - if not exist "%LIBRARY_BIN%\\bsdcat.exe" exit 1   # [win32]
+    - if not exist "%LIBRARY_BIN%\\bsdcpio.exe" exit 1  # [win32]
+    - bsdcat --version      # [unix or win64]
+    - bsdcpio --version     # [unix or win64]
+    - bsdtar --version      # [unix or win64]
+    - pushd test-archives   # [unix or win64]
+    -   bsdtar -vxf hello_world.xar 2>&1 | rg "x hello_world"   # [unix or win64]
+    -   bsdtar -vxf archive.7z 2>&1 | rg "x 7zip-archive"       # [unix or win64]
+    -   bsdtar -vxf hello_world.tar.zst 2>&1 | rg "greets"      # [unix or win64]
+    - popd   # [unix or win64]
 
 about:
-  home: http://www.libarchive.org/
+  home: https://libarchive.org/
   summary: Multi-format archive and compression library
   license: BSD-2-Clause
   license_file: COPYING
   license_family: BSD
+  dev_url: https://github.com/libarchive/libarchive
+  doc_url: https://github.com/libarchive/libarchive/wiki
 
 extra:
   recipe-maintainers:

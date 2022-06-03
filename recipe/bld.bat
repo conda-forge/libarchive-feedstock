@@ -40,7 +40,12 @@ set C99_TO_C89_CONV_DEBUG_LEVEL=1
 :skip_c99_wrap
 :: set cflags because NDEBUG is set in Release configuration, which errors out in test suite due to no assert
 
-cmake -G "NMake Makefiles JOM" ^
+:: cmd
+echo "Building %PKG_NAME%."
+
+:: Generate the build files.
+echo "Generating the build files..."
+cmake -G "Ninja" ^
       -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
       %COMPILER% ^
       -DCMAKE_BUILD_TYPE=Release ^
@@ -50,43 +55,25 @@ cmake -G "NMake Makefiles JOM" ^
       -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -DCMAKE_C_FLAGS_RELEASE="%CFLAGS%" ^
       -DENABLE_CNG=%ENABLE_CNG% ^
-     .
+      .
 if errorlevel 1 exit /b 1
 
 :build
 
 :: Build.
-jom -j%CPU_COUNT% VERBOSE=1
-:: ninja -j%CPU_COUNT% -v
+echo "Building..."
+ninja -j%CPU_COUNT% -v
 if errorlevel 1 exit /b 1
+
 :: Install.
-jom install
-:: ninja install
+echo "Installing..."
+ninja install
 if errorlevel 1 exit /b 1
 
-:: Test.
-:: Failures:
-:: The following tests FAILED:
-::         365 - libarchive_test_read_truncated_filter_bzip2 (Timeout) => runs msys2's bzip2.exe
-::         372 - libarchive_test_sparse_basic (Failed)
-::         373 - libarchive_test_fully_sparse_files (Failed)
-::         386 - libarchive_test_warn_missing_hardlink_target (Failed)
-:: ctest -C Release
-:: if errorlevel 1 exit 1
-
-:: Windows 32-bit seems to want to run the wrong zlib DLL
-:: We have 2 zlib-1.2.11 build #3 for win-64:
-:: zlib-1.2.11-h3cc03e0_3.tar.bz2	120 KB	2018-11-21 15:50:01 +0000	928fa9aa513a1d08016a4079e2c52706a3fd29a5f2acd16eabec5e8ab9599478	774d60f873e10acc14be0d239c18d614
-:: zlib-1.2.11-h62dcd97_3.tar.bz2	128 KB	2018-11-21 15:46:22 +0000	3a5148e6b79ae0ec581df96d97d248d38366db49109f1726eda76639551745be	6f96fd91475cc78aabf76d2e1a9ed91f
-:: https://repo.anaconda.com/pkgs/main/win-64/zlib-1.2.11-h3cc03e0_3.tar.bz2
-:: https://repo.anaconda.com/pkgs/main/win-64/zlib-1.2.11-h62dcd97_3.tar.bz2
-
-:: Test extracting a 7z. This failed due to not using the multi-threaded DLL runtime, fixed by 0009-CMake-Force-Multi-threaded-DLL-runtime.patch
-:: %BUILD_PREFIX%\Library\bin\curl.exe -SLO http://download.qt.io/development_releases/prebuilt/llvmpipe/windows/opengl32sw-64-mesa_12_0_rc2.7z
-:: powershell -command "& { (New-Object Net.WebClient).DownloadFile('http://download.qt.io/development_releases/prebuilt/llvmpipe/windows/opengl32sw-64-mesa_12_0_rc2.7z', 'opengl32sw-64-mesa_12_0_rc2.7z') }"
-:: if errorlevel 1 exit 1
-:: %LIBRARY_BIN%\bsdtar.exe -xf opengl32sw-64-mesa_12_0_rc2.7z
-:: if errorlevel 1 exit 1
+:: Perform tests.
+::echo "Testing..."
+::ctest -VV --output-on-failure
+:: if errorlevel 1 exit /b 1 there are failed tests
 
 echo Trying to run %LIBRARY_BIN%\bsdcat.exe --version
 %LIBRARY_BIN%\bsdcat.exe --version
@@ -95,3 +82,7 @@ if errorlevel 1 exit 1
 echo Trying to run %LIBRARY_BIN%\bsdcpio.exe --version
 %LIBRARY_BIN%\bsdcpio.exe --version
 if errorlevel 1 exit 1
+
+:: Error free exit.
+echo "Error free exit!"
+exit 0
