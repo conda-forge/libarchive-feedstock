@@ -1,6 +1,13 @@
 #!/bin/bash
 set -euxo pipefail
 
+# Remove this block when 3.6 is released
+if [[ $PKG_VERSION != 3.5.* ]];
+    # @jaimergp, 2022-06-10
+    echo "Please remove the symlink workaround at the bottom of the script once libarchive 3.6 or higher is released/built"
+    exit 1
+fi
+
 mkdir build-${HOST} && pushd build-${HOST}
 
 if [[ $target_platform =~ linux.* ]]; then
@@ -31,7 +38,7 @@ cmake .. ${CMAKE_ARGS}                                 \
 make -j${CPU_COUNT}
 make install
 
-
+# see https://github.com/conda-forge/libarchive-feedstock/issues/69
 if [[ $target_platform =~ linux.* ]]; then
     # backwards compatibility with artifacts <= version=3.5.2,build=2
     MAJOR_VERSION=$(echo $PKG_VERSION | cut -d. -f1)
