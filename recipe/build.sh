@@ -36,7 +36,7 @@ MAJOR_VERSION=$(echo $PKG_VERSION | cut -d. -f1)
 MINOR_VERSION=$(echo $PKG_VERSION | cut -d. -f2)
 MINOR_PATCH_VERSION=$(echo $PKG_VERSION | cut -d. -f2-)
 # Check upstream CMakeLists.txt for details
-if [[ $MAJOR_VERSION == 3 ]];
+if [[ $MAJOR_VERSION == 3 ]]; then
     SONAME_BASE=13
 else
     echo "MAJOR_VERSION $MAJOR_VERSION not recognized. Update build.sh to specify its SONAME_BASE"
