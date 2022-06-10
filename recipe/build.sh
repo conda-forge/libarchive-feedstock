@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 # Remove this block when 3.6 is released
-if [[ $PKG_VERSION != 3.5.* ]];
+if [[ $PKG_VERSION != 3.5.* ]]; then
     # @jaimergp, 2022-06-10
     echo "Please remove the symlink workaround at the bottom of the script once libarchive 3.6 or higher is released/built"
     exit 1
