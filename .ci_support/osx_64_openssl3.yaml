@@ -5,13 +5,13 @@ bzip2:
 c_compiler:
 - clang
 c_compiler_version:
-- '13'
+- '14'
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 libiconv:
-- '1.16'
+- '1.17'
 libxml2:
 - '2.9'
 lz4_c:
