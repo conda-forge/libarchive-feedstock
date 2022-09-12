@@ -56,7 +56,7 @@ cmake -G "Ninja" ^
       -DCMAKE_C_FLAGS_RELEASE="%CFLAGS%" ^
       -DENABLE_CNG=%ENABLE_CNG% ^
       -DENABLE_BZIP2=TRUE ^
-      -DBZIP2_ROOT=%PREFIX%/lib
+      -DBZIP2_ROOT=%PREFIX%/lib ^
      .
 if errorlevel 1 exit /b 1
 
