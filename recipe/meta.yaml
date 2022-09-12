@@ -9,16 +9,16 @@ source:
   sha256: c676146577d989189940f1959d9e3980d28513d74eedfbc6b7f15ea45fe54ee2
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
-    - patches/0002-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
-    - patches/0003-VC9-compatibility-define-BCRYPT_SUCCESS.patch
-    - patches/0004-VC9-compatibility-openssl-define-inline-as-__inline.patch
-    - patches/0005-VC9-compatibility-Ignore-some-warnings.patch
-    - patches/0006-C99-compatibility-Remove-the-limited-amount-of-C99.patch
-    - patches/0007-CMake-Force-Multi-threaded-DLL-runtime.patch
-
+    - patches/0003-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
+    - patches/0004-VC9-compatibility-define-BCRYPT_SUCCESS.patch
+    - patches/0006-VC-openssl-define-inline-as-__inline.patch
+    # These warnings are errors when compiling lz-4 support
+    - patches/0007-CMake-VC9-compatibility-ignore-some-warnings.patch
+    - patches/0008-VC9-compatibility-remove-C99.patch
+    - patches/0009-CMake-Force-Multi-threaded-DLL-runtime.patch
 build:
   number: 0
-  skip: true  # [win and vc<14]
+  #skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=libarchive
     - {{ pin_subpackage('libarchive', max_pin='x.x') }}
@@ -73,14 +73,16 @@ test:
     - test -f "${PREFIX}/lib/libarchive${SHLIB_EXT}"   # [unix]
 
     # Check for commands
-    - bsdcat --version
-    - bsdcpio --version
-    - bsdtar --version
-    - pushd test-archives
-    -   bsdtar -vxf hello_world.xar 2>&1 | rg "x hello_world"
-    -   bsdtar -vxf archive.7z 2>&1 | rg "x 7zip-archive"
-    -   bsdtar -vxf hello_world.tar.zst 2>&1 | rg "greets"
-    - popd
+    - if not exist "%LIBRARY_BIN%\\bsdcat.exe" exit 1   # [win32]
+    - if not exist "%LIBRARY_BIN%\\bsdcpio.exe" exit 1  # [win32]
+    - bsdcat --version      # [unix or win64]
+    - bsdcpio --version     # [unix or win64]
+    - bsdtar --version      # [unix or win64]
+    - pushd test-archives   # [unix or win64]
+    -   bsdtar -vxf hello_world.xar 2>&1 | rg "x hello_world"   # [unix or win64]
+    -   bsdtar -vxf archive.7z 2>&1 | rg "x 7zip-archive"       # [unix or win64]
+    -   bsdtar -vxf hello_world.tar.zst 2>&1 | rg "greets"      # [unix or win64]
+    - popd   # [unix or win64]
 
 about:
   home: https://libarchive.org/

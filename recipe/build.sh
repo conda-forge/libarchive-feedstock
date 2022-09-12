@@ -1,8 +1,9 @@
 #!/bin/bash
+echo "Building ${PKG_NAME}."
 
 # Isolate the build.
-mkdir -p build_c
-cd build_c || exit 1
+mkdir -p Build-${PKG_NAME}
+cd Build-${PKG_NAME} || exit 1
 
 # Generate the build files.
 echo "Generating the build files."
@@ -37,11 +38,11 @@ cmake .. ${CMAKE_ARGS}                                   \
 
 # Build.
 echo "Building..."
-ninja || exit 1 
+ninja -j${CPU_COUNT} || exit 1
 
 # Perform tests.
 #echo "Testing..."
-#ctest -VV --output-on-failure || exit 1
+#ctest -VV --output-on-failure || true # there are failed tests
 
 # Installing
 echo "Installing..."
@@ -49,3 +50,4 @@ ninja install || exit 1
 
 # Error free exit!
 echo "Error free exit!"
+exit 0

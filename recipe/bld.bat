@@ -40,6 +40,11 @@ set C99_TO_C89_CONV_DEBUG_LEVEL=1
 :skip_c99_wrap
 :: set cflags because NDEBUG is set in Release configuration, which errors out in test suite due to no assert
 
+:: cmd
+echo "Building %PKG_NAME%."
+
+:: Generate the build files.
+echo "Generating the build files..."
 cmake -G "Ninja" ^
       -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
       %COMPILER% ^
@@ -58,22 +63,19 @@ if errorlevel 1 exit /b 1
 :build
 
 :: Build.
-:: jom -j%CPU_COUNT% VERBOSE=1
+echo "Building..."
 ninja -j%CPU_COUNT% -v
 if errorlevel 1 exit /b 1
+
+:: Install.
+echo "Installing..."
 ninja install
 if errorlevel 1 exit /b 1
 
-:: Test.
-:: Failures:
-:: The following tests FAILED:
-::         365 - libarchive_test_read_truncated_filter_bzip2 (Timeout) => runs msys2's bzip2.exe
-::         372 - libarchive_test_sparse_basic (Failed)
-::         373 - libarchive_test_fully_sparse_files (Failed)
-::         386 - libarchive_test_warn_missing_hardlink_target (Failed)
-::ctest -C Release
-::if errorlevel 1 exit 1
-
+:: Perform tests.
+::echo "Testing..."
+::ctest -VV --output-on-failure
+:: if errorlevel 1 exit /b 1 there are failed tests
 
 echo Trying to run %LIBRARY_BIN%\bsdcat.exe --version
 %LIBRARY_BIN%\bsdcat.exe --version
@@ -82,3 +84,7 @@ if errorlevel 1 exit 1
 echo Trying to run %LIBRARY_BIN%\bsdcpio.exe --version
 %LIBRARY_BIN%\bsdcpio.exe --version
 if errorlevel 1 exit 1
+
+:: Error free exit.
+echo "Error free exit!"
+exit 0
