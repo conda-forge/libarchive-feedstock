@@ -55,7 +55,9 @@ cmake -G "Ninja" ^
       -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -DCMAKE_C_FLAGS_RELEASE="%CFLAGS%" ^
       -DENABLE_CNG=%ENABLE_CNG% ^
-      .
+      -DENABLE_BZIP2=TRUE ^
+      -DBZIP2_ROOT=%PREFIX%/lib ^
+     .
 if errorlevel 1 exit /b 1
 
 :build

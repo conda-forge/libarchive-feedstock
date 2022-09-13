@@ -34,18 +34,19 @@ diff -Naur libarchive-3.4.3.orig/libarchive/archive_read_support_filter_lz4.c li
  			__archive_read_filter_consume(self->upstream,
  				4 + skip_bytes);
  		} else {
-diff -Naur libarchive-3.4.3.orig/libarchive/archive_write_disk_windows.c libarchive-3.4.3/libarchive/archive_write_disk_windows.c
---- libarchive-3.4.3.orig/libarchive/archive_write_disk_windows.c	2020-05-19 20:48:25.000000000 -0300
-+++ libarchive-3.4.3/libarchive/archive_write_disk_windows.c	2020-09-24 17:31:33.671390386 -0300
-@@ -1671,7 +1671,7 @@
+diff --git a/libarchive/archive_write_disk_windows.c b/libarchive/archive_write_disk_windows.c
+index 1b12a299..d637bcbb 100644
+--- a/libarchive/archive_write_disk_windows.c
++++ b/libarchive/archive_write_disk_windows.c
+@@ -1660,7 +1660,7 @@ create_filesystem_object(struct archive_write_disk *a)
  	/* Since link(2) and symlink(2) don't handle modes, we're done here. */
  	linkname = archive_entry_hardlink_w(a->entry);
  	if (linkname != NULL) {
--		wchar_t *linkfull, *namefull;
-+		wchar_t const *linkfull, *namefull;
- 
- 		linkfull = __la_win_permissive_name_w(linkname);
- 		namefull = __la_win_permissive_name_w(a->name);
+-		wchar_t *linksanitized, *linkfull, *namefull;
++		wchar_t const *linksanitized, *linkfull, *namefull;
+ 		size_t l = (wcslen(linkname) + 1) * sizeof(wchar_t);
+ 		linksanitized = malloc(l);
+ 		if (linksanitized == NULL) {
 diff -Naur libarchive-3.4.3.orig/libarchive/test/test_sparse_basic.c libarchive-3.4.3/libarchive/test/test_sparse_basic.c
 --- libarchive-3.4.3.orig/libarchive/test/test_sparse_basic.c	2020-05-19 20:48:25.000000000 -0300
 +++ libarchive-3.4.3/libarchive/test/test_sparse_basic.c	2020-09-24 17:30:31.541246375 -0300

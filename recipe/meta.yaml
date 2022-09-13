@@ -1,12 +1,12 @@
-{% set version = "3.5.2" %}
+{% set version = "3.6.1" %}
 
 package:
   name: libarchive
   version: {{ version }}
 
 source:
-  url: https://github.com/libarchive/libarchive/archive/v{{ version }}.tar.gz
-  sha256: 126058cb4cf50e36bcf83307f5d987bde2ecebabcae985b6a153116362d25b7b
+  url: https://github.com/libarchive/libarchive/releases/download/v{{ version }}/libarchive-{{ version }}.tar.gz
+  sha256: c676146577d989189940f1959d9e3980d28513d74eedfbc6b7f15ea45fe54ee2
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
     - patches/0003-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
@@ -30,7 +30,7 @@ requirements:
   build:
     - {{ compiler('c') }}
     - cmake
-    - ninja-base  # [not win]
+    - ninja-base
     - patch       # [not win]
     - m2-patch    # [win]
   host:
