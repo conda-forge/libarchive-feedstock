@@ -20,16 +20,18 @@ source:
     - patches/0007-CMake-VC9-compatibility-ignore-some-warnings.patch
 
 build:
-  number: 3
-  skip: true  # [win and vc<14]
-  run_exports:
-    # https://abi-laboratory.pro/index.php?view=timeline&l=libarchive
-    - {{ pin_subpackage('libarchive', max_pin='x.x') }}
+  number: 0
 
 outputs:
   - name: libarchive
     script: build_libarchive.sh  # [unix]
     script: build_libarchive.bat  # [win]
+
+    build:
+      run_exports:
+        # https://abi-laboratory.pro/index.php?view=timeline&l=libarchive
+        - {{ pin_subpackage('libarchive', max_pin='x.x') }}
+
     requirements:
       build:
         - {{ compiler('c') }}
@@ -56,6 +58,26 @@ outputs:
         - libxml2
         - zlib
         - zstd
+    test:
+      files:
+        - test/hello_world.xar
+      commands:
+        # Verify pkg-config file is in place.
+        - test -f "${PREFIX}/lib/pkgconfig/libarchive.pc"  # [unix]
+
+        # Verify headers are in place.
+        - test -f "${PREFIX}/include/archive.h"            # [unix]
+        - test -f "${PREFIX}/include/archive_entry.h"      # [unix]
+
+        # Verify libraries are in place.
+        - test -f "${PREFIX}/lib/libarchive.a"             # [unix]
+        - test -f "${PREFIX}/lib/libarchive${SHLIB_EXT}"   # [unix]
+
+        # Check for commands
+        - bsdcat --version
+        - bsdcpio --version
+        - bsdtar --version
+        - bsdtar -tf test/hello_world.xar
 
 
   - name: libarchive-minimal-static
@@ -71,30 +93,22 @@ outputs:
         - pkg-config  # [unix]
         - make        # [unix]
       host:
+        - libiconv    # [osx]
         - bzip2
         - zlib
         - zstd
 
-test:
-  files:
-    - test/hello_world.xar
-  commands:
-    # Verify pkg-config file is in place.
-    - test -f "${PREFIX}/lib/pkgconfig/libarchive.pc"  # [unix]
+    test:
+      commands:
+        # Verify pkg-config file is in place.
+        - test -f "${PREFIX}/lib/pkgconfig/libarchive.pc"  # [unix]
 
-    # Verify headers are in place.
-    - test -f "${PREFIX}/include/archive.h"            # [unix]
-    - test -f "${PREFIX}/include/archive_entry.h"      # [unix]
+        # Verify headers are in place.
+        - test -f "${PREFIX}/include/archive.h"            # [unix]
+        - test -f "${PREFIX}/include/archive_entry.h"      # [unix]
 
-    # Verify libraries are in place.
-    - test -f "${PREFIX}/lib/libarchive.a"             # [unix]
-    - test -f "${PREFIX}/lib/libarchive${SHLIB_EXT}"   # [unix]
-
-    # Check for commands
-    - bsdcat --version
-    - bsdcpio --version
-    - bsdtar --version
-    - bsdtar -tf test/hello_world.xar
+        # Verify libraries are in place.
+        - test -f "${PREFIX}/lib/libarchive.a"             # [unix]
 
 about:
   home: http://www.libarchive.org/
