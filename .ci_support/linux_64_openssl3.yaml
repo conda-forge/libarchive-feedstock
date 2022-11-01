@@ -13,28 +13,17 @@ channel_targets:
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 libxml2:
-- '2.9'
+- '2.10'
 lz4_c:
 - 1.9.3
 lzo:
 - '2'
 openssl:
 - '3'
-pin_run_as_build:
-  bzip2:
-    max_pin: x
-  libxml2:
-    max_pin: x.x
-  lzo:
-    max_pin: x
-  xz:
-    max_pin: x.x
-  zlib:
-    max_pin: x.x
 target_platform:
 - linux-64
 xz:
-- '5.2'
+- '5'
 zlib:
 - '1.2'
 zstd:
