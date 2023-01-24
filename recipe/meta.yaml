@@ -98,3 +98,6 @@ extra:
     - jakirkham
     - mingwandroid
     - ocefpaf
+  skip-lints:
+    - missing_tests
+    - host_section_needs_exact_pinnings
