@@ -86,10 +86,17 @@ test:
 
 about:
   home: https://libarchive.org/
-  summary: Multi-format archive and compression library
   license: BSD-2-Clause
   license_file: COPYING
   license_family: BSD
+  summary: Multi-format archive and compression library
+  description: |
+    Libarchive is an open-source BSD-licensed C programming library that provides streaming access 
+    to a variety of different archive formats, including tar, cpio, pax, Zip, and ISO9660 images. 
+    The distribution also includes bsdtar and bsdcpio, full-featured implementations of tar and cpio 
+    that use libarchive.
+    When reading archives, libarchive uses a robust automatic format detector that can automatically handle archives 
+    that have been compressed with gzip, bzip2, xz, lzip, and several other popular compression algorithms.
   dev_url: https://github.com/libarchive/libarchive
   doc_url: https://github.com/libarchive/libarchive/wiki
 
