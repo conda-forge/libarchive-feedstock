@@ -1,4 +1,4 @@
-{% set version = "3.6.1" %}
+{% set version = "3.6.2" %}
 
 package:
   name: libarchive
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/libarchive/libarchive/releases/download/v{{ version }}/libarchive-{{ version }}.tar.gz
-  sha256: c676146577d989189940f1959d9e3980d28513d74eedfbc6b7f15ea45fe54ee2
+  sha256: ba6d02f15ba04aba9c23fd5f236bb234eab9d5209e95d1c4df85c44d5f19b9b3
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
     - patches/0003-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
@@ -86,10 +86,17 @@ test:
 
 about:
   home: https://libarchive.org/
-  summary: Multi-format archive and compression library
   license: BSD-2-Clause
   license_file: COPYING
   license_family: BSD
+  summary: Multi-format archive and compression library
+  description: |
+    Libarchive is an open-source BSD-licensed C programming library that provides streaming access 
+    to a variety of different archive formats, including tar, cpio, pax, Zip, and ISO9660 images. 
+    The distribution also includes bsdtar and bsdcpio, full-featured implementations of tar and cpio 
+    that use libarchive.
+    When reading archives, libarchive uses a robust automatic format detector that can automatically handle archives 
+    that have been compressed with gzip, bzip2, xz, lzip, and several other popular compression algorithms.
   dev_url: https://github.com/libarchive/libarchive
   doc_url: https://github.com/libarchive/libarchive/wiki
 
@@ -98,3 +105,6 @@ extra:
     - jakirkham
     - mingwandroid
     - ocefpaf
+  skip-lints:
+    - missing_tests
+    - host_section_needs_exact_pinnings
