@@ -17,7 +17,7 @@ source:
     - patches/0008-VC9-compatibility-remove-C99.patch
     - patches/0009-CMake-Force-Multi-threaded-DLL-runtime.patch
 build:
-  number: 1
+  number: 2
   #skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=libarchive
@@ -48,10 +48,12 @@ requirements:
     #  Please don't distribute binary packages of libarchive linked
     #  against liblzo."
     # - lzo
-    - openssl  # [not osx]
+    - openssl {{ openssl }} # [not osx]
     - libxml2 2.10
-    - zlib
-    - zstd
+    - zlib {{ zlib }}
+    - zstd {{ zstd }}
+  run:
+    - openssl 3.*
 
 test:
   requires:
