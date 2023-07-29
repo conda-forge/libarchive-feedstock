@@ -1,4 +1,4 @@
-{% set version = "3.6.2" %}
+{% set version = "3.7.1" %}
 
 package:
   name: libarchive-split
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/libarchive/libarchive/archive/v{{ version }}.tar.gz
-  sha256: 652b84588488c2ff38db8f666cd7f781163f85bff4449dcb2e16d3c734f96697
+  sha256: 593544415765dd2e160fe132adb1513930b36c431de611b5eb3d98ba663bc995
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
     - patches/0003-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
@@ -20,7 +20,7 @@ source:
     - patches/0007-CMake-VC9-compatibility-ignore-some-warnings.patch
 
 build:
-  number: 1
+  number: 0
 
 outputs:
   - name: libarchive
