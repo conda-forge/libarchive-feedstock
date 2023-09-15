@@ -1,44 +1,31 @@
 MACOSX_DEPLOYMENT_TARGET:
-- '11.0'
+- '10.9'
 bzip2:
 - '1'
 c_compiler:
 - clang
 c_compiler_version:
-- '13'
+- '15'
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 libiconv:
-- '1.16'
+- '1'
 libxml2:
-- '2.9'
+- '2.11'
 lz4_c:
 - 1.9.3
 lzo:
 - '2'
 macos_machine:
-- arm64-apple-darwin20.0.0
+- x86_64-apple-darwin13.4.0
 openssl:
-- 1.1.1
-pin_run_as_build:
-  bzip2:
-    max_pin: x
-  libiconv:
-    max_pin: x.x
-  libxml2:
-    max_pin: x.x
-  lzo:
-    max_pin: x
-  xz:
-    max_pin: x.x
-  zlib:
-    max_pin: x.x
+- '3'
 target_platform:
-- osx-arm64
+- osx-64
 xz:
-- '5.2'
+- '5'
 zlib:
 - '1.2'
 zstd:
