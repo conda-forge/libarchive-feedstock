@@ -70,8 +70,8 @@ outputs:
         - test -f "${PREFIX}/lib/libarchive.a"             # [unix]
         - test -f "${PREFIX}/lib/libarchive${SHLIB_EXT}"   # [unix]
 
-        # List libarchive SO/dylib's
-        - ls -la "${PREFIX}/lib/libarchive"*"${SHLIB_EXT}"  # [unix]
+        # List libarchive objects
+        - ls -la "${PREFIX}/lib/libarchive"*               # [unix]
 
         # Check for commands
         - bsdcat --version
