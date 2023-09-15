@@ -26,7 +26,7 @@ cmake .. ${CMAKE_ARGS}                 \
     -DENABLE_XML2=TRUE                 \
     -DENABLE_EXPAT=FALSE
 
-make -j${CPU_COUNT} ${VERBOSE_AT}
+make -j${CPU_COUNT}
 make install
 
 # see https://github.com/conda-forge/libarchive-feedstock/issues/69
