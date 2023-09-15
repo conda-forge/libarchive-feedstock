@@ -1,6 +1,15 @@
 #!/bin/bash
 set -euxo pipefail
 
+MAJOR_VERSION=$(echo $PKG_VERSION | cut -d. -f1)
+MINOR_VERSION=$(echo $PKG_VERSION | cut -d. -f2)
+PATCH_VERSION=$(echo $PKG_VERSION | cut -d. -f3)
+
+if [ "$MAJOR_VERSION" -eq "3" ] && [ "$MINOR_VERSION" -gt "7" ]; then
+    echo "Version $PKG_VERSION > 3.7. Please remove the symlink adapters at the end of the script."
+    exit 1
+fi
+
 if [[ $target_platform =~ linux.* ]]; then
     USE_ICONV=-DENABLE_ICONV=FALSE
 else
@@ -29,17 +38,10 @@ cmake .. ${CMAKE_ARGS}                 \
 make -j${CPU_COUNT}
 make install
 
+# Symlink adapters for backwards compatibility
 # see https://github.com/conda-forge/libarchive-feedstock/issues/69
-MAJOR_VERSION=$(echo $PKG_VERSION | cut -d. -f1)
-MINOR_VERSION=$(echo $PKG_VERSION | cut -d. -f2)
-PATCH_VERSION=$(echo $PKG_VERSION | cut -d. -f3)
-# Check upstream CMakeLists.txt for details
-if [[ $MAJOR_VERSION == 3 ]]; then
-    SONAME_BASE=13
-else
-    echo "MAJOR_VERSION $MAJOR_VERSION not recognized. Update build.sh to specify its SONAME_BASE"
-    exit 1
-fi
+# base soname number taken from upstream's CMakeLists.txt
+SONAME_BASE="13"
 SONAME_VERSION=$(( $SONAME_BASE + $MINOR_VERSION ))
 
 if [[ $target_platform =~ linux.* ]]; then
