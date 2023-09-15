@@ -22,7 +22,7 @@ ${SRC_DIR}/configure --prefix=${PREFIX}  \
                      --without-openssl   \
                      --without-nettle    \
                      --without-xml2      \
-                     --without-expat     \
+                     --without-expat
 
 make -j${CPU_COUNT} ${VERBOSE_AT}
 make install
