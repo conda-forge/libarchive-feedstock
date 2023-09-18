@@ -31,6 +31,7 @@ cmake .. ${CMAKE_ARGS}                 \
     -DENABLE_LZO=TRUE                  \
     -DENABLE_ZSTD=TRUE                 \
     -DENABLE_CNG=FALSE                 \
+    -DENABLE_OPENSSL=TRUE              \
     -DENABLE_NETTLE=FALSE              \
     -DENABLE_XML2=TRUE                 \
     -DENABLE_EXPAT=FALSE
