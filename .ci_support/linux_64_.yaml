@@ -13,7 +13,7 @@ channel_targets:
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 libxml2:
-- '2.11'
+- '2.12'
 lz4_c:
 - 1.9.3
 lzo:

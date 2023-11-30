@@ -7,7 +7,7 @@ channel_sources:
 channel_targets:
 - conda-forge main
 libxml2:
-- '2.11'
+- '2.12'
 lz4_c:
 - 1.9.3
 lzo:
