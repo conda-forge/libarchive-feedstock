@@ -119,6 +119,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - jjerphan
     - jakirkham
     - mingwandroid
     - ocefpaf
