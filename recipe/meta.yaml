@@ -59,8 +59,12 @@ outputs:
         - zlib
         - zstd
     test:
+      requires:
+        - {{ compiler('c') }}
+        - cmake
+        - ninja
       files:
-        - test/hello_world.xar
+        - test/*
       commands:
         # Verify pkg-config file is in place.
         - test -f "${PREFIX}/lib/pkgconfig/libarchive.pc"  # [unix]
@@ -83,6 +87,11 @@ outputs:
         - bsdtar --version
         - bsdtar -tf test/hello_world.xar
 
+        # Running a test trying to link to the library
+        - cmake -G Ninja -S test/ -B build/ -D LIB_NAME="libarchive{{ SHLIB_EXT }}" ${CMAKE_ARGS}  # [unix]
+        - cmake -G Ninja -S test/ -B build/ -D LIB_NAME="archive" %CMAKE_ARGS%                     # [win]
+        - cmake --build build/
+        - cmake --build build --target test
 
   - name: libarchive-minimal-static
     script: build_minimal.sh
