@@ -66,12 +66,16 @@ outputs:
         - test -f "${PREFIX}/lib/pkgconfig/libarchive.pc"  # [unix]
 
         # Verify headers are in place.
-        - test -f "${PREFIX}/include/archive.h"            # [unix]
-        - test -f "${PREFIX}/include/archive_entry.h"      # [unix]
+        - test -f "${PREFIX}/include/archive.h"                # [unix]
+        - if not exist %LIBRARY_INC%\archive.h (exit 1)        # [win]
+        - test -f "${PREFIX}/include/archive_entry.h"          # [unix]
+        - if not exist %LIBRARY_INC%\archive_entry.h (exit 1)  # [win]
 
         # Verify libraries are in place.
-        - test -f "${PREFIX}/lib/libarchive.a"             # [unix]
-        - test -f "${PREFIX}/lib/libarchive${SHLIB_EXT}"   # [unix]
+        - test -f "${PREFIX}/lib/libarchive.a"                # [unix]
+        - test -f "${PREFIX}/lib/libarchive${SHLIB_EXT}"      # [unix]
+        - if not exist %LIBRARY_LIB%\archive.lib (exit 1)     # [win]
+        - if not exist %LIBRARY_BIN%\archive.dll (exit 1)     # [win]
 
         # Check for commands
         - bsdcat --version
