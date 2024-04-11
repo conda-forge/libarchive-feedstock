@@ -99,18 +99,18 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
-        - autoconf    # [unix]
-        - automake    # [unix]
-        - libtool     # [unix]
-        - pkg-config  # [unix]
-        - make        # [unix]
-        - cmake       # [win]
-        - ninja       # [win]
+        - autoconf      # [unix]
+        - automake      # [unix]
+        - libtool       # [unix]
+        - pkg-config    # [unix]
+        - make          # [unix]
+        - cmake >=3.24  # [win]
+        - ninja         # [win]
       host:
-        - libiconv    # [osx]
+        - libiconv      # [osx]
         - bzip2
         - zlib
-        - zstd
+        - zstd-static
 
     test:
       requires:
