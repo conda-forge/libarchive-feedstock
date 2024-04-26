@@ -38,7 +38,6 @@ set C99_TO_C89_WRAP_SAVE_TEMPS=1
 set C99_TO_C89_WRAP_NO_LINE_DIRECTIVES=1
 set C99_TO_C89_CONV_DEBUG_LEVEL=1
 :skip_c99_wrap
-:: set cflags because NDEBUG is set in Release configuration, which errors out in test suite due to no assert
 
 cmake -G "Ninja" ^
       -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
@@ -46,7 +45,6 @@ cmake -G "Ninja" ^
       -DCMAKE_BUILD_TYPE=Release ^
       -DCMAKE_C_USE_RESPONSE_FILE_FOR_OBJECTS:BOOL=FALSE ^
       -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
-      -DCMAKE_C_FLAGS_RELEASE="%CFLAGS%" ^
       -DENABLE_CNG=%ENABLE_CNG% ^
       .
 
