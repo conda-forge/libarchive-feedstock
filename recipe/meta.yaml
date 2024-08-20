@@ -1,4 +1,4 @@
-{% set version = "3.6.2" %}
+{% set version = "3.7.4" %}
 
 package:
   name: libarchive
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/libarchive/libarchive/releases/download/v{{ version }}/libarchive-{{ version }}.tar.gz
-  sha256: ba6d02f15ba04aba9c23fd5f236bb234eab9d5209e95d1c4df85c44d5f19b9b3
+  sha256: 7875d49596286055b52439ed42f044bd8ad426aa4cc5aabd96bfe7abb971d5e8
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
     - patches/0003-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
@@ -17,7 +17,7 @@ source:
     - patches/0008-VC9-compatibility-remove-C99.patch
     - patches/0009-CMake-Force-Multi-threaded-DLL-runtime.patch
 build:
-  number: 4
+  number: 0
   #skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=libarchive
@@ -53,7 +53,7 @@ requirements:
     - zlib {{ zlib }}
     - zstd {{ zstd }}
   run:
-    - openssl
+    - openssl  # [not osx]
 
 test:
   requires:
