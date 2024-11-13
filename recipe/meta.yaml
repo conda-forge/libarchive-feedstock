@@ -17,7 +17,7 @@ build:
   ignore_run_exports:  # [osx]
     - openssl  # [osx]
 
-requirements:
+requirements:;
   build:
     - {{ compiler('c') }}
     - cmake
