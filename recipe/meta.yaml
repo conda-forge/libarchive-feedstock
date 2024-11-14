@@ -22,8 +22,6 @@ requirements:
     - {{ compiler('c') }}
     - cmake
     - ninja-base
-    - patch       # [not win]
-    - m2-patch    # [win]
   host:
     - msinttypes  # [win and vc<14]
     - bzip2
