@@ -9,8 +9,8 @@ source:
   sha256: fa62384995e8aa4f5a901c184fb5c91e56a29e24c05b6881a7f8fd5bbea694d2
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
-    # - patches/0003-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
-    # - patches/0004-VC9-compatibility-define-BCRYPT_SUCCESS.patch
+    - patches/0003-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
+    - patches/0004-VC9-compatibility-define-BCRYPT_SUCCESS.patch
     # This should not be applied in general. It exists so I can build it for
     # debugging Visual Studio where warnings are errors for some reason.
     # Hiding warnings is poor practice.

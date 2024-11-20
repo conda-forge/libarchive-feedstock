@@ -3,7 +3,7 @@
 @@ -64,12 +64,7 @@
  } archive_crypto_ctx;
  
- #elif defined(_WIN32) && !defined(__CYGWIN__) && defined(HAVE_BCRYPT_H)
+ #elif defined(_WIN32) && !defined(__CYGWIN__) && defined(HAVE_BCRYPT_H) && _WIN32_WINNT >= _WIN32_WINNT_VISTA
 -#include <bcrypt.h>
 -
 -/* Common in other bcrypt implementations, but missing from VS2008. */
@@ -19,7 +19,7 @@
 @@ -64,7 +64,7 @@
  } archive_crypto_ctx;
  
- #elif defined(_WIN32) && !defined(__CYGWIN__) && defined(HAVE_BCRYPT_H)
+ #elif defined(_WIN32) && !defined(__CYGWIN__) && defined(HAVE_BCRYPT_H) && _WIN32_WINNT >= _WIN32_WINNT_VISTA
 -#include <bcrypt.h>
 +#include "bcrypt_with_vs2008.h"
  
