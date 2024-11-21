@@ -17,8 +17,8 @@ diff -urN work.orig/libarchive/archive_cryptor.c work/libarchive/archive_cryptor
  	return 0;
  }
  
--#elif defined(_WIN32) && !defined(__CYGWIN__) && defined(HAVE_BCRYPT_H)
-+#elif defined(_WIN32) && !defined(__CYGWIN__) && defined(HAVE_BCRYPT_H) && defined(HAVE_BCRYPT_DERIVE_KEY_PBKDF2)
+-#elif defined(_WIN32) && !defined(__CYGWIN__) && defined(HAVE_BCRYPT_H) && _WIN32_WINNT >= _WIN32_WINNT_VISTA
++#elif defined(_WIN32) && !defined(__CYGWIN__) && defined(HAVE_BCRYPT_H) && _WIN32_WINNT >= _WIN32_WINNT_VISTA && defined(HAVE_BCRYPT_DERIVE_KEY_PBKDF2)
  #ifdef _MSC_VER
  #pragma comment(lib, "Bcrypt.lib")
  #endif
