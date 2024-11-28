@@ -1,6 +1,8 @@
---- work/CMakeLists.txt.orig	2017-12-15 16:52:54.709341000 -0600
-+++ work/CMakeLists.txt	2017-12-15 16:54:40.943948000 -0600
-@@ -454,7 +454,10 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bfe68acd..660f3b75 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -530,7 +530,10 @@ MARK_AS_ADVANCED(CLEAR BZIP2_LIBRARIES)
  # Find LZMA
  #
  IF(ENABLE_LZMA)
@@ -9,5 +11,7 @@
    FIND_PACKAGE(LibLZMA)
 +  SET(CMAKE_FIND_LIBRARY_PREFIXES "${OLD_CMAKE_FIND_LIBRARY_PREFIXES}")
  ELSE()
-   SET(LIBZMA_FOUND FALSE) # Override cached value
+   SET(LIBLZMA_FOUND FALSE) # Override cached value
  ENDIF()
+-- 
+2.39.3 (Apple Git-146)
