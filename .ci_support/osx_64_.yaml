@@ -20,6 +20,8 @@ libarchive:
 - '3.7'
 libiconv:
 - '1'
+liblzma_devel:
+- '5'
 libxml2:
 - '2'
 lz4_c:
@@ -32,8 +34,6 @@ openssl:
 - '3'
 target_platform:
 - osx-64
-xz:
-- '5'
 zlib:
 - '1'
 zstd:

@@ -10,6 +10,8 @@ channel_targets:
 - conda-forge main
 libarchive:
 - '3.7'
+liblzma_devel:
+- '5'
 libxml2:
 - '2'
 lz4_c:
@@ -22,8 +24,6 @@ target_platform:
 - win-64
 vc:
 - '14'
-xz:
-- '5'
 zlib:
 - '1'
 zstd:
