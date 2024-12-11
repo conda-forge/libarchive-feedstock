@@ -1,7 +1,13 @@
 * text=auto
 
-*.patch binary
-*.diff binary
+*.patch text eol=lf
+*.dpatch text eol=crlf
+*.diff text eol=lf
+*.ddiff text eol=crlf
+*.bpatch binary
+*.bdiff binary
+*.tpatch text
+*.tdiff text
 meta.yaml text eol=lf
 build.sh text eol=lf
 bld.bat text eol=crlf

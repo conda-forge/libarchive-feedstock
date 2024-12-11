@@ -8,11 +8,11 @@ Subject: [PATCH] CMake: Force Multi-threaded DLL runtime
  1 file changed, 4 insertions(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index bd4517c..828fc80 100644
+index 660f3b75..84b796fb 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -169,6 +169,8 @@ IF (MSVC)
-   SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /WX")
+@@ -215,9 +215,13 @@ IF (MSVC)
+   SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /w14706")
    # /Oi option enables built-in functions.
    SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /Oi")
 +  # /MD option for Multi-threaded DLL (non-debug since you cannot mix them).
@@ -20,15 +20,11 @@ index bd4517c..828fc80 100644
    #################################################################
    # Set compile flags for release build.
    SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /Oi")
-@@ -183,6 +185,8 @@ IF (MSVC)
-     SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /wd4244")
-     SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /wd4996")
-   ENDIF (MSVC_VERSION LESS 1900)
 +  # /MD option for Multi-threaded DLL.
 +  SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /MD")
  ENDIF (MSVC)
  
  # Enable CTest/CDash support
 -- 
-2.15.0
+2.39.3 (Apple Git-146)
 
