@@ -9,18 +9,9 @@ source:
   sha256: fa62384995e8aa4f5a901c184fb5c91e56a29e24c05b6881a7f8fd5bbea694d2
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
-    - patches/0003-VC9-compatibility-test-for-BCryptDeriveKeyPBKDF2.patch
-    - patches/0004-VC9-compatibility-define-BCRYPT_SUCCESS.patch
-    # This should not be applied in general. It exists so I can build it for
-    # debugging Visual Studio where warnings are errors for some reason.
-    # Hiding warnings is poor practice.
-    # - patches/0005-VC9-compatibility-ignore-some-warnings.patch
-    - patches/0006-VC-openssl-define-inline-as-__inline.patch
-    # These warnings are errors when compiling lz-4 support
-    - patches/0007-CMake-VC9-compatibility-ignore-some-warnings.patch
 
 build:
-  number: 2
+  number: 3
 
 outputs:
   - name: libarchive
@@ -36,10 +27,6 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ stdlib("c") }}
-        # Does not work in this recips at present
-        # we manually convert C99 to C89 instead.
-        # - c99-to-c89  # [win and vc<14]
-        - msinttypes  # [win and vc<14]
         - autoconf    # [unix]
         - automake    # [unix]
         - libtool     # [unix]
@@ -49,7 +36,6 @@ outputs:
         - ninja       # [win]
         - m2-patch    # [win]
       host:
-        - msinttypes  # [win and vc<14]
         - bzip2
         - libiconv    # [osx]
         - lz4-c
@@ -122,5 +108,4 @@ about:
 extra:
   recipe-maintainers:
     - jakirkham
-    - mingwandroid
     - ocefpaf
