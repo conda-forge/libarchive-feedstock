@@ -11,7 +11,7 @@ source:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
 
 build:
-  number: 3
+  number: 4
 
 outputs:
   - name: libarchive
@@ -31,7 +31,7 @@ outputs:
         - automake    # [unix]
         - libtool     # [unix]
         - pkg-config  # [unix]
-        - cmake       # [win]
+        - cmake <4    # [win]
         - make        # [unix]
         - ninja       # [win]
         - m2-patch    # [win]
@@ -109,3 +109,4 @@ extra:
   recipe-maintainers:
     - jakirkham
     - ocefpaf
+    - jjerphan

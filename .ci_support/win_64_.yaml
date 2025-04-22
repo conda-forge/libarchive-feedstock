@@ -13,7 +13,7 @@ libarchive:
 liblzma_devel:
 - '5'
 libxml2:
-- '2'
+- '2.13'
 lz4_c:
 - '1.10'
 lzo:
@@ -22,8 +22,6 @@ openssl:
 - '3'
 target_platform:
 - win-64
-vc:
-- '14'
 zlib:
 - '1'
 zstd:
