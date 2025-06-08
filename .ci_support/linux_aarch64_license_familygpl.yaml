@@ -22,6 +22,8 @@ liblzma_devel:
 - '5'
 libxml2:
 - '2.13'
+license_family:
+- gpl
 lz4_c:
 - '1.10'
 lzo:
@@ -29,7 +31,7 @@ lzo:
 openssl:
 - '3'
 target_platform:
-- linux-ppc64le
+- linux-aarch64
 zlib:
 - '1'
 zstd:
