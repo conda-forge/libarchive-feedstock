@@ -1,0 +1,42 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '10.13'
+MACOSX_SDK_VERSION:
+- '10.13'
+bzip2:
+- '1'
+c_compiler:
+- clang
+c_compiler_version:
+- '18'
+c_stdlib:
+- macosx_deployment_target
+c_stdlib_version:
+- '10.13'
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+libarchive:
+- '3.7'
+libiconv:
+- '1'
+liblzma_devel:
+- '5'
+libxml2:
+- '2.13'
+license_family:
+- lgpl
+lz4_c:
+- '1.10'
+lzo:
+- '2'
+macos_machine:
+- x86_64-apple-darwin13.4.0
+openssl:
+- '3'
+target_platform:
+- osx-64
+zlib:
+- '1'
+zstd:
+- '1.5'

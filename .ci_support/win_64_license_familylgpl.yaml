@@ -1,0 +1,30 @@
+bzip2:
+- '1'
+c_compiler:
+- vs2019
+c_stdlib:
+- vs
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+libarchive:
+- '3.7'
+liblzma_devel:
+- '5'
+libxml2:
+- '2.13'
+license_family:
+- lgpl
+lz4_c:
+- '1.10'
+lzo:
+- '2'
+openssl:
+- '3'
+target_platform:
+- win-64
+zlib:
+- '1'
+zstd:
+- '1.5'
