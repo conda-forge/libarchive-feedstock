@@ -18,7 +18,7 @@ fi
 cmake .. ${CMAKE_ARGS}                                   \
       -GNinja                                            \
       -DCMAKE_PREFIX_PATH=$PREFIX                        \
-      -DCMAKE_INSTALL_PREFIX=$PREFIX             \
+      -DCMAKE_INSTALL_PREFIX=$PREFIX                     \
       -DCMAKE_BUILD_TYPE=Release                         \
       -DCMAKE_C_USE_RESPONSE_FILE_FOR_OBJECTS:BOOL=FALSE \
       -DCMAKE_C_FLAGS_RELEASE="$CFLAGS"                  \
@@ -41,8 +41,10 @@ echo "Building..."
 ninja -j${CPU_COUNT} || exit 1
 
 # Perform tests.
-#echo "Testing..."
-#ctest -VV --output-on-failure || true # there are failed tests
+echo "Testing..."
+# 542 - libarchive_test_write_disk_appledouble_zip (Failed) -> Failed to open 'test_write_disk_appledouble_zip.zip'
+# 801 - bsdcpio_test_option_a (Failed) -> Test timeout computed to be: 1500 (1504)
+ctest -VV --output-on-failure || true # there are failed tests
 
 # Installing
 echo "Installing..."
