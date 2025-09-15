@@ -10,7 +10,7 @@ source:
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
 
-{% set build = 0 %}
+{% set build = 1 %}
 {% if license_family == 'gpl' %}
     {% set build = build + 100 %}
 {% endif %}
@@ -51,7 +51,7 @@ outputs:
         - lzo
     {% endif %}
         - openssl
-        - libxml2
+        - libxml2-devel
         - zlib
         - zstd
     {% if license_family != 'gpl' %}

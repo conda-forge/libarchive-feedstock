@@ -7,7 +7,7 @@ bzip2:
 c_compiler:
 - clang
 c_compiler_version:
-- '18'
+- '19'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
@@ -17,13 +17,13 @@ channel_sources:
 channel_targets:
 - conda-forge main
 libarchive:
-- '3.7'
+- '3.8'
 libiconv:
 - '1'
 liblzma_devel:
 - '5'
-libxml2:
-- '2.13'
+libxml2_devel:
+- '2.14'
 license_family:
 - gpl
 lz4_c:
