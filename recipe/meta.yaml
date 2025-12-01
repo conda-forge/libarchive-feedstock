@@ -1,4 +1,4 @@
-{% set version = "3.8.2" %}
+{% set version = "3.8.4" %}
 
 package:
   name: libarchive-split
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/libarchive/libarchive/archive/v{{ version }}.tar.gz
-  sha256: 97548897f06ed7f5cd847fc62a67420809dbbd9b45ec13a25d3290fafba046c8
+  sha256: e67100e84e95019907f8c616e3382a92f37e3389e4a8e447a1d50ea5b8e30868
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
 
