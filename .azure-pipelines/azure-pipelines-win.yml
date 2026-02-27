@@ -14,6 +14,12 @@ jobs:
       win_64_license_familylgpl:
         CONFIG: win_64_license_familylgpl
         UPLOAD_PACKAGES: 'True'
+      win_arm64_license_familygpl:
+        CONFIG: win_arm64_license_familygpl
+        UPLOAD_PACKAGES: 'True'
+      win_arm64_license_familylgpl:
+        CONFIG: win_arm64_license_familylgpl
+        UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
   variables:
     CONDA_BLD_PATH: D:\\bld\\
