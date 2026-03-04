@@ -1,25 +1,15 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '11.0'
-MACOSX_SDK_VERSION:
-- '11.0'
 bzip2:
 - '1'
 c_compiler:
-- clang
-c_compiler_version:
-- '19'
+- vs2022
 c_stdlib:
-- macosx_deployment_target
-c_stdlib_version:
-- '11.0'
+- vs
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 libarchive:
 - '3.8'
-libiconv:
-- '1'
 liblzma_devel:
 - '5'
 libxml2_devel:
@@ -30,12 +20,10 @@ lz4_c:
 - '1.10'
 lzo:
 - '2'
-macos_machine:
-- x86_64-apple-darwin13.4.0
 openssl:
 - '3.5'
 target_platform:
-- osx-64
+- win-arm64
 zlib:
 - '1'
 zstd:
