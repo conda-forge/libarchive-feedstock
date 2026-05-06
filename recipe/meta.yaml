@@ -10,7 +10,7 @@ source:
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
 
-{% set build = 0 %}
+{% set build = 1 %}
 {% if license_family == 'gpl' %}
     {% set build = build + 100 %}
 {% endif %}
@@ -64,19 +64,27 @@ outputs:
         - lzo <0.0a0
     {% endif %}
     test:
+      requires:
+        - {{ compiler('c') }}
+        - cmake
+        - ninja
       files:
-        - test/hello_world.xar
+        - test/*
       commands:
         # Verify pkg-config file is in place.
         - test -f "${PREFIX}/lib/pkgconfig/libarchive.pc"  # [unix]
 
         # Verify headers are in place.
-        - test -f "${PREFIX}/include/archive.h"            # [unix]
-        - test -f "${PREFIX}/include/archive_entry.h"      # [unix]
+        - test -f "${PREFIX}/include/archive.h"                # [unix]
+        - if not exist %LIBRARY_INC%\archive.h (exit 1)        # [win]
+        - test -f "${PREFIX}/include/archive_entry.h"          # [unix]
+        - if not exist %LIBRARY_INC%\archive_entry.h (exit 1)  # [win]
 
         # Verify libraries are in place.
-        - test -f "${PREFIX}/lib/libarchive.a"             # [unix]
-        - test -f "${PREFIX}/lib/libarchive${SHLIB_EXT}"   # [unix]
+        - test -f "${PREFIX}/lib/libarchive.a"                # [unix]
+        - test -f "${PREFIX}/lib/libarchive${SHLIB_EXT}"      # [unix]
+        - if not exist %LIBRARY_LIB%\archive.lib (exit 1)     # [win]
+        - if not exist %LIBRARY_BIN%\archive.dll (exit 1)     # [win]
 
         # Check for commands
         - bsdcat --version
@@ -84,12 +92,18 @@ outputs:
         - bsdtar --version
         - bsdtar -tf test/hello_world.xar
 
+        # Basic compile+link test against libarchive.
+        - cmake -G Ninja -S test/ -B build/ -D LIB_NAME="libarchive{{ SHLIB_EXT }}" ${CMAKE_ARGS}  # [unix]
+        - cmake -G Ninja -S test/ -B build/ -D LIB_NAME="archive" %CMAKE_ARGS%                     # [win]
+        - cmake --build build/
+        - cmake --build build --target test
+
 
   - name: libarchive-minimal-static
-    script: build_minimal.sh
+    script: build_minimal.sh   # [unix]
+    script: build_minimal.bat  # [win]
     build:
       string: {{ license_family }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
-      skip: true  # [win]
       {% if license_family == 'gpl' %}
       skip: true
       {% endif %}
@@ -102,23 +116,40 @@ outputs:
         - libtool     # [unix]
         - pkg-config  # [unix]
         - make        # [unix]
+        - cmake >=3.24  # [win]
+        - ninja         # [win]
       host:
         - libiconv    # [osx]
         - bzip2
         - zlib
-        - zstd
+        - zstd-static
 
     test:
+      requires:
+        - {{ compiler('c') }}
+        - cmake
+        - ninja
+      files:
+        - test/*
       commands:
         # Verify pkg-config file is in place.
         - test -f "${PREFIX}/lib/pkgconfig/libarchive.pc"  # [unix]
 
         # Verify headers are in place.
-        - test -f "${PREFIX}/include/archive.h"            # [unix]
-        - test -f "${PREFIX}/include/archive_entry.h"      # [unix]
+        - test -f "${PREFIX}/include/archive.h"                # [unix]
+        - if not exist %LIBRARY_INC%\archive.h (exit 1)        # [win]
+        - test -f "${PREFIX}/include/archive_entry.h"          # [unix]
+        - if not exist %LIBRARY_INC%\archive_entry.h (exit 1)  # [win]
 
         # Verify libraries are in place.
-        - test -f "${PREFIX}/lib/libarchive.a"             # [unix]
+        - test -f "${PREFIX}/lib/libarchive.a"                    # [unix]
+        - if not exist %LIBRARY_LIB%\archive_static.lib (exit 1)  # [win]
+
+        # Basic compile+link test against static libarchive.
+        - cmake -G Ninja -S test/ -B build/ -D LIB_NAME="libarchive.a" ${CMAKE_ARGS}   # [unix]
+        - cmake -G Ninja -S test/ -B build/ -D LIB_NAME="archive_static" %CMAKE_ARGS%  # [win]
+        - cmake --build build/
+        - cmake --build build --target test
 
 about:
   home: http://www.libarchive.org/
