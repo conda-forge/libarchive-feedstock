@@ -12,6 +12,8 @@ target_include_directories(test-libarchive PRIVATE ${libarchive_INCLUDE_DIR})
 # Needed for header macro to resolve to the correct symbol names.
 if(WIN32 AND LIB_NAME STREQUAL "archive_static")
     target_compile_definitions(test-libarchive PRIVATE LIBARCHIVE_STATIC)
+    # archive_static.lib uses BCrypt on Windows; consumers must link bcrypt too.
+    target_link_libraries(test-libarchive PRIVATE bcrypt)
 endif()
 
 # Needed dependency on macOS.
