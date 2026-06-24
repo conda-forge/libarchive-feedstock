@@ -107,6 +107,10 @@ outputs:
       {% if license_family == 'gpl' %}
       skip: true
       {% endif %}
+      script_env:  # [win]
+        # libarchive always uses BCrypt on Windows for RNG/temp files, but
+        # CMake only links bcrypt.lib when ENABLE_CNG=ON.
+        - ENABLE_CNG=ON  # [win]
     requirements:
       build:
         - {{ compiler('c') }}

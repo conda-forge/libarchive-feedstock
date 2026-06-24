@@ -1,3 +1,5 @@
+if not defined ENABLE_CNG set ENABLE_CNG=OFF
+
 cmake -B build ^
     -G "Ninja" ^
     -D CMAKE_MSVC_RUNTIME_LIBRARY="MultiThreadedDLL" ^
@@ -13,7 +15,7 @@ cmake -B build ^
     -D ZSTD_LIBRARY="%LIBRARY_LIB%\\zstd_static.lib" ^
     -D ENABLE_LZMA=OFF ^
     -D ENABLE_LZO=OFF ^
-    -D ENABLE_CNG=OFF ^
+    -D ENABLE_CNG=%ENABLE_CNG% ^
     -D ENABLE_OPENSSL=OFF ^
     -D ENABLE_NETTLE=OFF ^
     -D ENABLE_LIBXML2=OFF ^
