@@ -1,4 +1,4 @@
-{% set version = "3.8.8" %}
+{% set version = "3.8.9" %}
 
 package:
   name: libarchive-split
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/libarchive/libarchive/archive/v{{ version }}.tar.gz
-  sha256: 528f9c91e11238cbb5ce6d79b20fa3bb48a5cd124008036af1913d84fc5ba420
+  sha256: 744346f6bca195c8f894f847bb32a16e9bcae6002624a58fadc81e80f595b3cb
   patches:
     - patches/0001-Add-lib-to-CMAKE_FIND_LIBRARY_PREFIXES-for-lzma.patch
 
@@ -107,7 +107,7 @@ outputs:
       {% if license_family == 'gpl' %}
       skip: true
       {% endif %}
-      script_env:  # [win]
+      script_env:   # [win]
         # libarchive always uses BCrypt on Windows for RNG/temp files, but
         # CMake only links bcrypt.lib when ENABLE_CNG=ON.
         - ENABLE_CNG=ON  # [win]
