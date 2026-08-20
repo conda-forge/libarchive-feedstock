@@ -19,7 +19,7 @@ libarchive:
 liblzma_devel:
 - '5'
 libxml2_devel:
-- '2.14'
+- '2.15'
 license_family:
 - gpl
 lz4_c:
