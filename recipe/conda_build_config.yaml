@@ -1,3 +1,5 @@
 license_family:
   - lgpl
   - gpl
+libxml2_devel:
+  - '2.15'  #[linux and riscv64]
