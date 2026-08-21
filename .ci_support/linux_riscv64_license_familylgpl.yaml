@@ -7,7 +7,7 @@ c_compiler_version:
 c_stdlib:
 - sysroot
 c_stdlib_version:
-- '2.17'
+- '2.39'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -21,7 +21,7 @@ liblzma_devel:
 libxml2_devel:
 - '2.15'
 license_family:
-- gpl
+- lgpl
 lz4_c:
 - '1.10'
 lzo:
@@ -29,7 +29,7 @@ lzo:
 openssl:
 - '3.5'
 target_platform:
-- linux-ppc64le
+- linux-riscv64
 zlib:
 - '1'
 zstd:
