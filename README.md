@@ -47,6 +47,20 @@ Current build status
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libarchive-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_license_familylgpl" alt="variant">
                 </a>
               </td>
+            </tr><tr>
+              <td>osx_arm64_license_familygpl</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=519&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libarchive-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_license_familygpl" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_license_familylgpl</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=519&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libarchive-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_license_familylgpl" alt="variant">
+                </a>
+              </td>
             </tr>
           </tbody>
         </table>
